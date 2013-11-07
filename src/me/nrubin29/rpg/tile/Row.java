@@ -1,14 +1,16 @@
 package me.nrubin29.rpg.tile;
 
+import java.util.ArrayList;
+
 public class Row {
 
-	private Tile[] tiles;
+	private ArrayList<Tile> tiles = new ArrayList<Tile>();
 	
-	public Row(Tile... tiles) {
-		this.tiles = tiles;
+	public void addTile(Tile t) {
+		tiles.add(t);
 	}
 	
 	public Tile tileAt(int i) {
-		return tiles[i];
+		return tiles.get(i);
 	}
 }

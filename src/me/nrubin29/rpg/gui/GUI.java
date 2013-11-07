@@ -43,7 +43,6 @@ public class GUI extends JLayeredPane {
         	
         	Row row = map.getRow(j);
         	for (int i = 0; i < Constants.TILES_PER_ROW; i++) {
-        		
         		JLabel backgroundTile = new JLabel(map.getType().getBackgroundTile().getImage());
             	backgroundTile.setBounds(i * Constants.TILE_DIM, j * Constants.TILE_DIM, backgroundTile.getIcon().getIconWidth(), backgroundTile.getIcon().getIconHeight());
             	add(backgroundTile, Constants.BACKGROUND_LAYER);

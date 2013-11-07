@@ -29,6 +29,8 @@ public class Main {
     public static void main(String[] args) {
     	Thread.setDefaultUncaughtExceptionHandler(new UncaughtExceptionHandler() {
 			public void uncaughtException(Thread th, Throwable e) {
+				e.printStackTrace(); //TODO: Temp
+				
 				if (frame != null) {
 					frame.setVisible(false);
 					frame.dispose();
