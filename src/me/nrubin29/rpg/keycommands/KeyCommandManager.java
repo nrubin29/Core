@@ -1,9 +1,13 @@
 package me.nrubin29.rpg.keycommands;
 
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
+import me.nrubin29.rpg.keycommands.commands.Down;
 import me.nrubin29.rpg.keycommands.commands.Fullscreen;
+import me.nrubin29.rpg.keycommands.commands.Interact;
+import me.nrubin29.rpg.keycommands.commands.Left;
+import me.nrubin29.rpg.keycommands.commands.Right;
+import me.nrubin29.rpg.keycommands.commands.Up;
 
 public class KeyCommandManager {
 
@@ -19,16 +23,11 @@ public class KeyCommandManager {
 	
 	public void setup() {
 		cmds.add(new Fullscreen());
-	}
-	
-	public boolean runCommand(KeyEvent e) {
-		for (KeyCommand cmd : cmds) {
-			if (cmd.shouldRun(e)) {
-				cmd.run();
-				return true;
-			}
-		}
+		cmds.add(new Interact());
 		
-		return false;
+		cmds.add(new Down());
+		cmds.add(new Left());
+		cmds.add(new Right());
+		cmds.add(new Up());
 	}
 }

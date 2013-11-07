@@ -6,21 +6,19 @@ import java.awt.event.ActionListener;
 import javax.swing.Timer;
 
 public class TimerUtil {
-	
-	public static Timer runInBackground(int delay, boolean repeats, final Runnable run) {
-		Timer t = new Timer(delay, new ActionListener() {
+
+	public static void runTimer(int duration, final Runnable run) {
+		Timer t = new Timer(duration, new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				run.run();
 			}
 		});
 		
-		t.setRepeats(repeats);
+		t.setRepeats(false);
 		t.start();
-		
-		return t;
 	}
-
-	public static void animate(final Runnable run) {
-		runInBackground(Constants.ANIMATION_DURATION, false, run);
+	
+	public static void animate(Runnable run) {
+		runTimer(Constants.ANIMATION_DURATION, run);
 	}
 }

@@ -33,7 +33,7 @@ public class Sprite {
     	for (Field f : getClass().getFields()) {
     		if (f.getType().equals(ImageIcon.class)) {
     			try {
-    				f.set(this, ImageUtil.getImage("sprites/" + name.toLowerCase() + "/" + f.getName(), Constants.TILE_DIM, Constants.TILE_DIM));
+    				f.set(this, ImageUtil.resizeImage(ImageUtil.getImage("sprites/" + name.toLowerCase() + "/" + f.getName()), Constants.TILE_DIM, Constants.TILE_DIM));
     			}
     			catch (Exception e) { e.printStackTrace(); }
     		}
@@ -49,7 +49,7 @@ public class Sprite {
     		Field f = getClass().getField(d.name().toLowerCase() + (moving ? "Moving" + walkCycle.get(d) : "Static"));
         	return (ImageIcon) f.get(this);
     	}
-    	catch (Exception e) { e.printStackTrace(); return null; /* TODO: Error handling */ }
+    	catch (Exception e) { return null; }
     }
     
     public Direction getCurrentDirection() {

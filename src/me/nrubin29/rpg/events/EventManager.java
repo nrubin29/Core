@@ -27,19 +27,19 @@ public class EventManager {
 		events.put(map, current);
 	}
 	
-	public void checkEvents(Maps map, Point p, EventType type) {
-		if (events.get(map) == null) return;
+	public void checkEvents(Maps maps, Point p, EventType type) {
+		if (events.get(maps) == null) return;
 		
-		for (Event e : events.get(map)) {
+		for (Event e : events.get(maps)) {
 			if (e.getTilePoint().equals(p) && e.getType() == type && e.isEnabled()) e.run();
 		}
 		
 		ArrayList<Event> toRemove = new ArrayList<Event>();
 		
-		for (Event e : events.get(map)) {
+		for (Event e : events.get(maps)) {
 			if (e.shouldRemove()) toRemove.add(e);
 		}
 		
-		events.get(map).removeAll(toRemove);
+		events.get(maps).removeAll(toRemove);
 	}
 }

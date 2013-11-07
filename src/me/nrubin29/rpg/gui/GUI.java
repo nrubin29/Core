@@ -1,13 +1,10 @@
 package me.nrubin29.rpg.gui;
 
 import java.awt.Point;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 
-import me.nrubin29.rpg.Main;
 import me.nrubin29.rpg.events.Event.EventType;
 import me.nrubin29.rpg.events.EventManager;
 import me.nrubin29.rpg.keycommands.KeyCommandManager;
@@ -25,7 +22,10 @@ public class GUI extends JLayeredPane {
 
 	private static final long serialVersionUID = 1L;
 	
+	private Map map;
+	private Maps mapsEnumConst;
 	private JLabel playerLabel;
+	private Sprite player;
 	private boolean enableInput = true;
 
     public GUI() {
@@ -35,7 +35,8 @@ public class GUI extends JLayeredPane {
     }
 
     public void renderMap(final Maps maps) {
-    	final Map map = maps.getInstance();
+    	map = maps.getInstance();
+    	this.mapsEnumConst = maps;
     	
         removeAll();
 
@@ -56,63 +57,64 @@ public class GUI extends JLayeredPane {
         	}
         }
         
-        final Sprite player = Sprites.PLAYER.newInstance();
+        player = Sprites.PLAYER.newInstance();
         playerLabel = new JLabel(player.getImage(Direction.DOWN, false));
         playerLabel.setBounds(5 * Constants.TILE_DIM, 5 * Constants.TILE_DIM, Constants.TILE_DIM, Constants.TILE_DIM);
         add(playerLabel, Constants.SPRITE_LAYER);
         
-        Main.getFrame().addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-            	if (KeyCommandManager.getInstance().runCommand(e)) return;
-            	
-            	if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-            		final Direction d = player.getCurrentDirection();
-            		
-            		EventManager.getInstance().checkEvents(maps, new Point(playerLabel.getX() + d.getMovement().x, playerLabel.getY() + d.getMovement().y), EventType.INTERACT);
-            		
-            		return;
-            	}
-            	
-            	if (!enableInput) return;
-            	
-            	boolean didMove = false;
-            	final Direction newDirection = Direction.valueOf(e);
-            	
-            	if (newDirection == null) return;
-            	
-            	playerLabel.setIcon(player.getImage(newDirection, true));
-            	
-            	final Point to = new Point(playerLabel.getX() + newDirection.getMovement().x, playerLabel.getY() + newDirection.getMovement().y);
-            	
-            	if (to.getX() >= 0 &&
-            			to.getX() <= Constants.PANEL_DIMENSION.getWidth() - Constants.TILE_DIM &&
-            			to.getY() >= 0 &&
-            			to.getY() <= Constants.PANEL_DIMENSION.getHeight() - Constants.TILE_DIM &&
-            			
-            			!map.getRow(to.y / Constants.TILE_DIM).tileAt(to.x / Constants.TILE_DIM).isSolid()) {
-            		
-            		playerLabel.setLocation(to);
-            		
-            		didMove = true;
-            	}
-            	
-            	TimerUtil.animate(new Runnable() {
-                	public void run() {
-                        playerLabel.setIcon(player.getImage(newDirection, false));
-                	}
-                });
-
-                if (didMove) EventManager.getInstance().checkEvents(maps, playerLabel.getLocation(), EventType.MOVE);
-            }
-        });
+        KeyCommandManager.getInstance().setup();
     }
     
     public void setInputEnabled(boolean enableInput) {
     	this.enableInput = enableInput;
     }
     
+    public boolean isInputEnabled() {
+    	return enableInput;
+    }
+    
+    public Maps getCurrentMapsEnumConst() {
+    	return mapsEnumConst;
+    }
+    
     public JLabel getPlayerLabel() {
     	return playerLabel;
+    }
+    
+    public Sprite getPlayer() {
+    	return player;
+    }
+    
+    public void movement(int keyID) {
+    	if (!enableInput) return;
+    	
+    	boolean didMove = false;
+    	final Direction newDirection = Direction.valueOf(keyID);
+    	
+    	if (newDirection == null) return;
+    	
+    	playerLabel.setIcon(player.getImage(newDirection, true));
+    	
+    	final Point to = new Point(playerLabel.getX() + newDirection.getMovement().x, playerLabel.getY() + newDirection.getMovement().y);
+    	
+    	if (to.getX() >= 0 &&
+    			to.getX() <= Constants.PANEL_DIMENSION.getWidth() - Constants.TILE_DIM &&
+    			to.getY() >= 0 &&
+    			to.getY() <= Constants.PANEL_DIMENSION.getHeight() - Constants.TILE_DIM &&
+    			
+    			!map.getRow(to.y / Constants.TILE_DIM).tileAt(to.x / Constants.TILE_DIM).isSolid()) {
+    		
+    		playerLabel.setLocation(to);
+    		
+    		didMove = true;
+    	}
+    	
+    	TimerUtil.animate(new Runnable() {
+        	public void run() {
+                playerLabel.setIcon(player.getImage(newDirection, false));
+        	}
+        });
+
+        if (didMove) EventManager.getInstance().checkEvents(mapsEnumConst, playerLabel.getLocation(), EventType.MOVE);
     }
 }

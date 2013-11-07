@@ -8,9 +8,9 @@ public class MapTileUtil {
 	public enum Direction {
 		LEFT, UP, RIGHT, DOWN;
 		
-		public static Direction valueOf(KeyEvent e) {
-			if (e.getKeyCode() < KeyEvent.VK_LEFT || e.getKeyCode() > KeyEvent.VK_DOWN) return null;
-			return values()[e.getKeyCode() - KeyEvent.VK_LEFT];
+		public static Direction valueOf(int keyCode) {
+			if (keyCode < KeyEvent.VK_LEFT || keyCode > KeyEvent.VK_DOWN) return null;
+			return values()[keyCode - KeyEvent.VK_LEFT];
 		}
 		
 		public Point getMovement() {

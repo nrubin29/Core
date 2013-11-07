@@ -39,7 +39,7 @@ public class AchievementPopup extends TranslucentPanel {
 		
 		PlayerData.getInstance().addAchievement(ach);
 		
-		TimerUtil.runInBackground(5 * 1000, false, new Runnable() {
+		TimerUtil.runTimer(5 * 1000, new Runnable() {
 			public void run() {
 				setVisible(false);
 				Main.getGUI().remove(AchievementPopup.this);

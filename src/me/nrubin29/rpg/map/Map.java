@@ -9,11 +9,13 @@ public abstract class Map {
 
 	public static final String EMPTY_ROW = "E E E E E E E E E E E E E E E E E E E E";
 	
+	private Maps mapsEnumConst;
 	private MapType type;
 	private String name;
 	private ArrayList<Row> rows;
 	
-	public Map(MapType type, String name, String... stringRows) {
+	public Map(Maps mapsEnumConst, MapType type, String name, String... stringRows) {
+		this.mapsEnumConst = mapsEnumConst;
 		this.type = type;
 		this.name = name;
 		this.rows = new ArrayList<Row>();
@@ -30,6 +32,10 @@ public abstract class Map {
 			
 			rows.add(r);
 		}
+	}
+	
+	public Maps getMapsEnumConstant() {
+		return mapsEnumConst;
 	}
 	
 	public MapType getType() {

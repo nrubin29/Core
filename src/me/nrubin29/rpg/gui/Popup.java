@@ -20,6 +20,7 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
 import me.nrubin29.rpg.Main;
+import me.nrubin29.rpg.misc.Icon;
 import me.nrubin29.rpg.misc.Image;
 import me.nrubin29.rpg.util.Constants;
 import me.nrubin29.rpg.util.FontUtil;
@@ -69,7 +70,7 @@ public class Popup extends JPanel {
 			 return this;
 		 }
 		 
-		 public PopupFactory addCustom(Image image, JPanel panel) {
+		 public PopupFactory addCustom(Icon image, JPanel panel) {
 			 popups.add(new Popup(image, panel, new Runnable() {
 					public void run() {
 						cursor++;

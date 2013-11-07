@@ -9,11 +9,7 @@ public class ImageUtil {
 
     public static ImageIcon getImage(String imagePath) {
         try { return new ImageIcon(ImageIO.read(Main.class.getClassLoader().getResource("res/" + imagePath + ".png"))); }
-        catch (Exception e) { e.printStackTrace(); /* TODO: Handle Errors */ return null; }
-    }
-
-    public static ImageIcon getImage(String imagePath, int width, int height) {
-    	return resizeImage(getImage(imagePath), width, height);
+        catch (Exception e) { return null; }
     }
 
 	public static ImageIcon resizeImage(ImageIcon image, int width, int height) {

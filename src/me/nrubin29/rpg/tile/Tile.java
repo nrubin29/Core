@@ -4,7 +4,10 @@ import java.awt.Point;
 
 import javax.swing.ImageIcon;
 
-public enum Tile {
+import me.nrubin29.rpg.misc.Image;
+import me.nrubin29.rpg.util.ImageUtil;
+
+public enum Tile implements Image {
 
 	EMPTY,
 	
@@ -50,6 +53,10 @@ public enum Tile {
 	
 	public ImageIcon getImage() {
 		return image;
+	}
+	
+	public ImageIcon getImage(int width, int height) {
+		return ImageUtil.resizeImage(getImage(), width, height);
 	}
 	
 	public boolean isSolid() {

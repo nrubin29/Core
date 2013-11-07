@@ -1,24 +1,21 @@
 package me.nrubin29.rpg;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.lang.Thread.UncaughtExceptionHandler;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.Timer;
 
 import me.nrubin29.rpg.gui.ErrorGUI;
 import me.nrubin29.rpg.gui.GUI;
 import me.nrubin29.rpg.gui.SplashScreen;
 import me.nrubin29.rpg.gui.StatusBar;
-import me.nrubin29.rpg.keycommands.KeyCommandManager;
 import me.nrubin29.rpg.map.Maps;
 import me.nrubin29.rpg.quest.Quests;
 import me.nrubin29.rpg.tile.TilesheetManager;
 import me.nrubin29.rpg.util.Constants;
+import me.nrubin29.rpg.util.TimerUtil;
 
 public class Main {
 
@@ -40,7 +37,6 @@ public class Main {
     	});
     	
     	TilesheetManager.getInstance().setup();
-    	KeyCommandManager.getInstance().setup();
     	
     	final SplashScreen splash = new SplashScreen();
     	
@@ -53,8 +49,8 @@ public class Main {
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         
-        sb = new StatusBar();
         gui = new GUI();
+        sb = new StatusBar();
         
         Box box = new Box(BoxLayout.Y_AXIS);
         box.setAlignmentX(JComponent.CENTER_ALIGNMENT);
@@ -66,14 +62,14 @@ public class Main {
         frame.add(box);
 
         getGUI().renderMap(Maps.SAMPLE_CITY); //TODO: Temp
-        Quests.SAMPLE.getInstance().startQuest(); //TODO: Temp?
+        Quests.SAMPLE.getInstance().startQuest(); //TODO: Temp
         
-        new Timer(3 * 1000, new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
+        TimerUtil.runTimer(3 * 1000, new Runnable() {
+        	public void run() {
         		splash.dispose();
         		frame.setVisible(true);
         	}
-        }).start();
+        });
     }
     
     public static JFrame getFrame() {
