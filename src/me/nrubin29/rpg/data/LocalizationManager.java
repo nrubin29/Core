@@ -1,4 +1,4 @@
-package me.nrubin29.rpg.misc;
+package me.nrubin29.rpg.data;
 
 public class LocalizationManager {
 	

@@ -13,7 +13,7 @@ public abstract class Event {
 	public static Event createMapMoveEvent(final Maps to, Point trigger, EventType type, final Point spawnTo, boolean isEnabled) {
 		return new Event(type, trigger.x, trigger.y, isEnabled) {
 			public void run() {
-				Main.getGUI().renderMap(to);
+				Main.getGUI().renderMap(to.getInstance());
 				Main.getGUI().getPlayerLabel().setLocation(spawnTo);
 			}
 		};

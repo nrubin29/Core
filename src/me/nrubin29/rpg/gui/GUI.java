@@ -5,6 +5,7 @@ import java.awt.Point;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 
+import me.nrubin29.rpg.audio.AudioPlayer;
 import me.nrubin29.rpg.events.Event.EventType;
 import me.nrubin29.rpg.events.EventManager;
 import me.nrubin29.rpg.keycommands.KeyCommandManager;
@@ -34,9 +35,9 @@ public class GUI extends JLayeredPane {
 		setMaximumSize(Constants.PANEL_DIMENSION);
     }
 
-    public void renderMap(final Maps maps) {
-    	map = maps.getInstance();
-    	this.mapsEnumConst = maps;
+    public void renderMap(final Map map) {
+    	this.map = map;
+    	this.mapsEnumConst = map.getMapsEnumConstant();
     	
         removeAll();
 
@@ -63,6 +64,8 @@ public class GUI extends JLayeredPane {
         add(playerLabel, Constants.SPRITE_LAYER);
         
         KeyCommandManager.getInstance().setup();
+        
+        AudioPlayer.getInstance().setBackgroundMusic(map.getBackgroundMusic());
     }
     
     public void setInputEnabled(boolean enableInput) {

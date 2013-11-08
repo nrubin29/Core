@@ -7,6 +7,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
+import me.nrubin29.rpg.data.DataManager;
 import me.nrubin29.rpg.gui.ErrorGUI;
 import me.nrubin29.rpg.gui.GUI;
 import me.nrubin29.rpg.gui.SplashScreen;
@@ -36,6 +37,7 @@ public class Main {
 			}
     	});
     	
+    	DataManager.getInstance().setup();
     	TilesheetManager.getInstance().setup();
     	
     	final SplashScreen splash = new SplashScreen();
@@ -61,7 +63,7 @@ public class Main {
         box.add(Box.createVerticalGlue());
         frame.add(box);
 
-        getGUI().renderMap(Maps.SAMPLE_CITY); //TODO: Temp
+        Maps.SAMPLE_CITY.getInstance().display(); //TODO: Temp
         Quests.SAMPLE.getInstance().startQuest(); //TODO: Temp
         
         TimerUtil.runTimer(3 * 1000, new Runnable() {
