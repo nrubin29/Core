@@ -43,7 +43,7 @@ public class Constants {
     
     public static final String
     		NAME = "RPG Engine",
-    		VERSION = "0.3.1";
+    		VERSION = "0.4";
     
     public static final int ANIMATION_DURATION = 75;
  

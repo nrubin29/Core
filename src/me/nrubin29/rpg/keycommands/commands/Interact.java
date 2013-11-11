@@ -1,9 +1,10 @@
 package me.nrubin29.rpg.keycommands.commands;
 
 import java.awt.Point;
-import java.awt.event.KeyEvent;
 
 import me.nrubin29.rpg.Main;
+import me.nrubin29.rpg.data.DataManager;
+import me.nrubin29.rpg.data.files.Keys;
 import me.nrubin29.rpg.events.Event.EventType;
 import me.nrubin29.rpg.events.EventManager;
 import me.nrubin29.rpg.gui.GUI;
@@ -12,7 +13,7 @@ import me.nrubin29.rpg.util.MapTileUtil.Direction;
 
 public class Interact extends KeyCommand {
 
-	public Interact() { super(KeyEvent.VK_ENTER, false, false, false); }
+	public Interact() { super(Integer.parseInt(DataManager.getInstance().getConfigurationFile(Keys.class).getValue("interactID")), false, false, false); }
 	
 	public void run() {
 		GUI gui = Main.getGUI();

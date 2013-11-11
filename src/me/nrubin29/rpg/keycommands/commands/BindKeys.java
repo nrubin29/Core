@@ -32,15 +32,17 @@ public class BindKeys extends KeyCommand {
 		for (final String key : strs) {
 			JPanel line = new JPanel();
 			
-			JLabel label = new JLabel(key.toLowerCase().substring(0, key.length() - 2));
+			JLabel label = new JLabel(key.toLowerCase().substring(0, key.length() - 2) + ":");
 			label.setFont(FontUtil.getFont(15));
 			label.setForeground(Constants.FOREGROUND_COLOR_ON_BACKGROUND);
 			
-			final JTextField set = new JTextField(KeyStroke.getKeyStroke(Integer.parseInt(keys.<String>getValue(key)), 0).getKeyChar());
+			final JTextField set = new JTextField(String.valueOf(KeyStroke.getKeyStroke(Integer.parseInt(keys.getValue(key)), 0)), 15);
+			set.setEditable(false);
+			
 			set.addKeyListener(new KeyAdapter() {
 						public void keyPressed(KeyEvent e) {
-							set.setText(e.getKeyChar() + "");
 							keys.set(key, KeyStroke.getKeyStroke(e.getKeyChar()).getKeyCode());
+							set.setText(KeyStroke.getKeyStrokeForEvent(e).toString());
 						}
 					});
 			

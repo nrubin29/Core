@@ -11,25 +11,22 @@ public enum Tile implements Image {
 
 	EMPTY,
 	
-	GRASS("environment", "G", 0, 0),
-	TREE_TALL_TOP_LEFT("environment", "TTTL", 1, 0, true),
-	TREE_TALL_TOP_RIGHT("environment", "TTTR", 2, 0, true),
+	GRASS("environment", "G", 1, 1),
+	TREE_TALL_TOP_LEFT("environment", "TTTL", 2, 1, true),
+	TREE_TALL_TOP_RIGHT("environment", "TTTR", 3, 1, true),
 	
-	TREE_TALL_MIDDLE_TOP_LEFT("environment", "TTMTL", 1, 1, true),
-	TREE_TALL_MIDDLE_TOP_RIGHT("environment", "TTMTR", 2, 1, true),
+	TREE_TALL_MIDDLE_LEFT("environment", "TTML", 2, 2, true),
+	TREE_TALL_MIDDLE_RIGHT("environment", "TTMR", 3, 2, true),
 	
-	TREE_TALL_MIDDLE_BOTTOM_LEFT("environment", "TTMBL", 1, 2, true),
-	TREE_TALL_MIDDLE_BOTTOM_RIGHT("environment", "TTMBR", 2, 2, true),
-	
-	TREE_TALL_BOTTOM_LEFT("environment", "TTBL", 1, 3, true),
-	TREE_TALL_BOTTOM_RIGHT("environment", "TTBR", 2, 3, true),
+	TREE_TALL_BOTTOM_LEFT("environment", "TTBL", 2, 3, true),
+	TREE_TALL_BOTTOM_RIGHT("environment", "TTBR", 3, 3, true),
 	
 	/* */
 	
-	COFFIN_DOWN("coffin", "CD", 0, 0, true),
-	COFFIN_LEFT("coffin", "CL", 1, 0, true),
-	COFFIN_RIGHT("coffin", "CR", 0, 1, true),
-	COFFIN_UP("coffin", "CU", 1, 1, true);
+	COFFIN_DOWN("environment", "CD", 4, 1, true),
+	COFFIN_LEFT("environment", "CL", 5, 1, true),
+	COFFIN_RIGHT("environment", "CR", 4, 2, true),
+	COFFIN_UP("environment", "CU", 5, 2, true);
 	
 	private String id;
 	private ImageIcon image;
@@ -37,7 +34,7 @@ public enum Tile implements Image {
 	
 	Tile(String tilesheet, String id, int x, int y, boolean isSolid) {
 		this.id = id;
-		this.image = TilesheetManager.getInstance().getTilesheet(tilesheet).getTile(new Point(x, y));
+		this.image = TilesheetManager.getInstance().getTilesheet(tilesheet).getTile(new Point(x - 1, y - 1));
 		this.isSolid = isSolid;
 	}
 	

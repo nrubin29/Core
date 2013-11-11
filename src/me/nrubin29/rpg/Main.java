@@ -1,5 +1,7 @@
 package me.nrubin29.rpg;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.lang.Thread.UncaughtExceptionHandler;
 
 import javax.swing.Box;
@@ -33,6 +35,7 @@ public class Main {
 					frame.setVisible(false);
 					frame.dispose();
 				}
+				
 				new ErrorGUI(e);
 			}
     	});
@@ -50,6 +53,12 @@ public class Main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
+        
+        frame.addKeyListener(new KeyAdapter() {
+        	public void keyPressed(KeyEvent e) {
+        		System.out.println("Key Event " + e.getKeyChar() + " | " + e.getKeyCode());
+        	}
+        });
         
         gui = new GUI();
         sb = new StatusBar();

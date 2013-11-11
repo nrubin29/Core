@@ -1,19 +1,15 @@
-package me.nrubin29.rpg.misc;
+package me.nrubin29.rpg.data.files;
 
 import java.util.ArrayList;
 
+import me.nrubin29.rpg.data.DataFile;
+import me.nrubin29.rpg.misc.Achievement;
 import me.nrubin29.rpg.util.Constants;
 
-public class PlayerData {
+public class Player extends DataFile {
+	
+	public Player() { super("playerdata"); }
 
-    private PlayerData() { }
-
-    private static PlayerData instance = new PlayerData();
-
-    public static PlayerData getInstance() {
-        return instance;
-    }
-    
     private int health = Constants.MAX_HEALTH, food = Constants.MAX_FOOD;
     
     public int getHealth() {

@@ -3,6 +3,7 @@ package me.nrubin29.rpg.data;
 import java.util.ArrayList;
 
 import me.nrubin29.rpg.data.files.Keys;
+import me.nrubin29.rpg.data.files.Player;
 
 public class DataManager {
 	
@@ -18,6 +19,7 @@ public class DataManager {
 	
 	public void setup() {
 		files.add(new Keys());
+		files.add(new Player());
 	}
 	
 	@SuppressWarnings("unchecked")
