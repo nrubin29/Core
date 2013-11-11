@@ -60,6 +60,11 @@ public class DataFile {
 		contents.put(key, value);
 	}
 	
+	public final void set(String key, Object value, Object update) {
+		set(key, value);
+		update = value;
+	}
+	
 	private File getFile(String name) {
 		String homedir = FileSystemView.getFileSystemView().getHomeDirectory().getAbsolutePath();
 		String osname = System.getProperty("os.name").toLowerCase();

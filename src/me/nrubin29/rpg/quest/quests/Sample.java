@@ -27,7 +27,7 @@ public class Sample extends Quest {
 			}
 		};
 		
-		super.registerEvent(Maps.SAMPLE_CITY, first);
-		super.registerEvent(Maps.SAMPLE_CITY, second);
+		super.registerEvent(Maps.SAMPLE_CITY.getInstance(), first);
+		super.registerEvent(Maps.SAMPLE_CITY.getInstance(), second);
 	}
 }

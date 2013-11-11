@@ -10,7 +10,6 @@ import me.nrubin29.rpg.events.Event.EventType;
 import me.nrubin29.rpg.events.EventManager;
 import me.nrubin29.rpg.keycommands.KeyCommandManager;
 import me.nrubin29.rpg.map.Map;
-import me.nrubin29.rpg.map.Maps;
 import me.nrubin29.rpg.sprite.Sprite;
 import me.nrubin29.rpg.sprite.Sprites;
 import me.nrubin29.rpg.tile.Row;
@@ -24,7 +23,6 @@ public class GUI extends JLayeredPane {
 	private static final long serialVersionUID = 1L;
 	
 	private Map map;
-	private Maps mapsEnumConst;
 	private JLabel playerLabel;
 	private Sprite player;
 	private boolean enableInput = true;
@@ -37,7 +35,6 @@ public class GUI extends JLayeredPane {
 
     public void renderMap(final Map map) {
     	this.map = map;
-    	this.mapsEnumConst = map.getMapsEnumConstant();
     	
         removeAll();
 
@@ -76,8 +73,8 @@ public class GUI extends JLayeredPane {
     	return enableInput;
     }
     
-    public Maps getCurrentMapsEnumConst() {
-    	return mapsEnumConst;
+    public Map getCurrentMap() {
+    	return map;
     }
     
     public JLabel getPlayerLabel() {
@@ -118,6 +115,6 @@ public class GUI extends JLayeredPane {
         	}
         });
 
-        if (didMove) EventManager.getInstance().checkEvents(mapsEnumConst, playerLabel.getLocation(), EventType.MOVE);
+        if (didMove) EventManager.getInstance().checkEvents(map, playerLabel.getLocation(), EventType.MOVE);
     }
 }

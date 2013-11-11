@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import me.nrubin29.rpg.events.Event.EventType;
-import me.nrubin29.rpg.map.Maps;
+import me.nrubin29.rpg.map.Map;
 
 public class EventManager {
 
@@ -17,9 +17,9 @@ public class EventManager {
 		return instance;
 	}
 	
-	private HashMap<Maps, ArrayList<Event>> events = new HashMap<Maps, ArrayList<Event>>();
+	private HashMap<Map, ArrayList<Event>> events = new HashMap<Map, ArrayList<Event>>();
 	
-	public void registerEvent(Maps map, Event e) {
+	public void registerEvent(Map map, Event e) {
 		if (events.get(map) == null) events.put(map, new ArrayList<Event>());
 		
 		ArrayList<Event> current = events.get(map);
@@ -27,19 +27,19 @@ public class EventManager {
 		events.put(map, current);
 	}
 	
-	public void checkEvents(Maps maps, Point p, EventType type) {
-		if (events.get(maps) == null) return;
+	public void checkEvents(Map map, Point p, EventType type) {
+		if (events.get(map) == null) return;
 		
-		for (Event e : events.get(maps)) {
+		for (Event e : events.get(map)) {
 			if (e.getTilePoint().equals(p) && e.getType() == type && e.isEnabled()) e.run();
 		}
 		
 		ArrayList<Event> toRemove = new ArrayList<Event>();
 		
-		for (Event e : events.get(maps)) {
+		for (Event e : events.get(map)) {
 			if (e.shouldRemove()) toRemove.add(e);
 		}
 		
-		events.get(maps).removeAll(toRemove);
+		events.get(map).removeAll(toRemove);
 	}
 }

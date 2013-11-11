@@ -22,7 +22,7 @@ public class Interact extends KeyCommand {
 		final Direction d = gui.getPlayer().getCurrentDirection();
 		
 		EventManager.getInstance().checkEvents(
-				gui.getCurrentMapsEnumConst(),
+				gui.getCurrentMap(),
 				new Point(
 						gui.getPlayerLabel().getX() + d.getMovement().x,
 						gui.getPlayerLabel().getY() + d.getMovement().y

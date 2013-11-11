@@ -1,7 +1,6 @@
 package me.nrubin29.rpg.gui;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.GridBagLayout;
 
 import javax.swing.BoxLayout;
@@ -21,11 +20,11 @@ public class SplashScreen extends JFrame {
 		setLayout(new GridBagLayout());
 		
 		JLabel title = new JLabel("loading " + Constants.NAME.toLowerCase());
-		title.setFont(FontUtil.getFont().deriveFont(Font.PLAIN, 50));
+		title.setFont(FontUtil.getFont(50));
 		title.setForeground(Color.WHITE);
 		
 		JLabel name = new JLabel("programmed by noah rubin - graphics by nathan sinai\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tv" + Constants.VERSION);
-		name.setFont(FontUtil.getFont().deriveFont(Font.PLAIN, 12));
+		name.setFont(FontUtil.getFont(12));
 		name.setForeground(Color.WHITE);
 		
 		JPanel panel = new JPanel();

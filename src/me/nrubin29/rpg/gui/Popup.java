@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
@@ -70,8 +71,8 @@ public class Popup extends JPanel {
 			 return this;
 		 }
 		 
-		 public PopupFactory addCustom(Icon image, JPanel panel) {
-			 popups.add(new Popup(image, panel, new Runnable() {
+		 public PopupFactory addCustom(Icon image, JComponent comp) {
+			 popups.add(new Popup(image, comp, new Runnable() {
 					public void run() {
 						cursor++;
 						if (popups.size() <= cursor) {
@@ -93,11 +94,14 @@ public class Popup extends JPanel {
 		 }
 	}
 	
-	private Popup(Image image, JPanel panel, final Runnable whenDone) {
-		JLabel img = new JLabel(image.getImage(75, 60));
-		img.setBorder(BorderFactory.createLineBorder(Color.BLUE));
-		img.setAlignmentX(Component.CENTER_ALIGNMENT);
-		img.setFocusable(false);
+	private Popup(Image image, JComponent comp, final Runnable whenDone) {
+		if (image != null) {
+			JLabel img = new JLabel(image.getImage(75, 60));
+			img.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+			img.setAlignmentX(Component.CENTER_ALIGNMENT);
+			img.setFocusable(false);
+			add(img);
+		}
 		
 		JLabel x = new JLabel("X");
 		x.setForeground(Color.RED);
@@ -113,8 +117,7 @@ public class Popup extends JPanel {
 			}
 		});
 		
-		add(img);
-		add(panel);
+		add(comp);
 		add(x);
 		
 		setBorder(BorderFactory.createLineBorder(Color.BLUE));

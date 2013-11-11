@@ -15,7 +15,7 @@ public class Keys extends DataFile {
 		this.rightID = Integer.parseInt(this.<String>getValue("rightID"));
 		this.interactID = Integer.parseInt(this.<String>getValue("interactID"));
 		
-		set("upID", 10);
+		set("upID", 10, upID);
 		save();
 	}
 	

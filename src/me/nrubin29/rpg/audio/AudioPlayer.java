@@ -2,6 +2,7 @@ package me.nrubin29.rpg.audio;
 
 import javazoom.jl.player.Player;
 import me.nrubin29.rpg.Main;
+import me.nrubin29.rpg.util.TimerUtil;
 
 public class AudioPlayer {
 	
@@ -16,7 +17,7 @@ public class AudioPlayer {
 	private Player bg;
 	
 	public void setBackgroundMusic(final Music audio) {
-		new Thread(new Runnable() { // TODO: SwingWorker
+		TimerUtil.runInBackground(new Runnable() {
 			public void run() {
 				try {
 					bg = createPlayer(audio);
@@ -25,7 +26,7 @@ public class AudioPlayer {
 				}
 				catch (Exception e) { e.printStackTrace(); }
 			}
-		}).start();
+		});
 	}
 	
 	public void stopBackgroundMusic() {

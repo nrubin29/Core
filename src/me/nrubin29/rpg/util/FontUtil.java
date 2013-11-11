@@ -14,4 +14,8 @@ public class FontUtil {
 		try { font = Font.createFont(Font.PLAIN, Main.class.getClassLoader().getResourceAsStream("res/font.ttf")); return font; }
 		catch (Exception e) { return null; }
 	}
+	
+	public static Font getFont(int size) {
+		return getFont().deriveFont(Font.PLAIN, size);
+	}
 }
