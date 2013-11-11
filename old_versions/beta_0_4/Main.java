@@ -10,11 +10,12 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 
 import me.nrubin29.rpg.data.DataManager;
-import me.nrubin29.rpg.demo.Demo;
 import me.nrubin29.rpg.gui.ErrorGUI;
 import me.nrubin29.rpg.gui.GUI;
 import me.nrubin29.rpg.gui.SplashScreen;
 import me.nrubin29.rpg.gui.StatusBar;
+import me.nrubin29.rpg.map.Maps;
+import me.nrubin29.rpg.quest.Quests;
 import me.nrubin29.rpg.tile.TilesheetManager;
 import me.nrubin29.rpg.util.Constants;
 import me.nrubin29.rpg.util.TimerUtil;
@@ -77,7 +78,8 @@ public class Main {
         box.add(Box.createVerticalGlue());
         frame.add(box);
 
-        Demo.registerDemoComponents();
+        Maps.SAMPLE_CITY.getInstance().display(); //TODO: Temp
+        Quests.SAMPLE.getInstance().startQuest(); //TODO: Temp
         
         TimerUtil.runTimer(3 * 1000, new Runnable() {
         	public void run() {

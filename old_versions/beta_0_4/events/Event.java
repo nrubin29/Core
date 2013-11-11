@@ -3,17 +3,17 @@ package me.nrubin29.rpg.events;
 import java.awt.Point;
 
 import me.nrubin29.rpg.Main;
-import me.nrubin29.rpg.map.Map;
+import me.nrubin29.rpg.map.Maps;
 import me.nrubin29.rpg.util.Constants;
 
 public abstract class Event {
 	
 	public enum EventType { MOVE, INTERACT; }
 	
-	public static Event createMapMoveEvent(final Map to, Point trigger, EventType type, final Point spawnTo, boolean isEnabled) {
+	public static Event createMapMoveEvent(final Maps to, Point trigger, EventType type, final Point spawnTo, boolean isEnabled) {
 		return new Event(type, trigger.x, trigger.y, isEnabled) {
 			public void run() {
-				to.display();
+				Main.getGUI().renderMap(to.getInstance());
 				Main.getGUI().getPlayerLabel().setLocation(spawnTo);
 			}
 		};

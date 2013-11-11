@@ -11,12 +11,14 @@ public abstract class Map {
 
 	public static final String EMPTY_ROW = "E E E E E E E E E E E E E E E E E E E E";
 	
+	private Maps mapsEnumConst;
 	private MapType type;
 	private String name;
 	private Music backgroundMusic;
 	private ArrayList<Row> rows;
 	
-	public Map(MapType type, String name, Music backgroundMusic, String... stringRows) {
+	public Map(Maps mapsEnumConst, MapType type, String name, Music backgroundMusic, String... stringRows) {
+		this.mapsEnumConst = mapsEnumConst;
 		this.type = type;
 		this.name = name;
 		this.backgroundMusic = backgroundMusic;
@@ -34,6 +36,10 @@ public abstract class Map {
 			
 			rows.add(r);
 		}
+	}
+	
+	public final Maps getMapsEnumConstant() {
+		return mapsEnumConst;
 	}
 	
 	public final MapType getType() {
