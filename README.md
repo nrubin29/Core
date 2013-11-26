@@ -1,7 +1,7 @@
-RPG-Engine
+RPG-Core
 ==========
 
-RPG-Engine is an engine for creating games in Java. It utilizes Swing for displaying graphics.
+RPG-Core is an engine for creating games in Java. It utilizes Swing for displaying graphics.
 
 <h3>Features</h3>
 * Audio Player (for background music and sound effects).
@@ -15,3 +15,4 @@ RPG-Engine is an engine for creating games in Java. It utilizes Swing for displa
 * Quest System (to allow easy event management)
 * Sprite Loading and Basic Animation
 * Tilesheet Parsing
+* Multiplayer!
