@@ -83,8 +83,9 @@ public class Popup extends JPanel {
 			 return this;
 		 }
 		 
-		 public void setWhenDone(Runnable whenDone) {
+		 public PopupFactory setWhenDone(Runnable whenDone) {
 			 this.whenDone = whenDone;
+             return this;
 		 }
 		 
 		 public void show() {
@@ -122,8 +123,8 @@ public class Popup extends JPanel {
 		setBackground(Data.BACKGROUND_COLOR);
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		setBounds(new Rectangle(
-				(Data.DIMENSION.width / 2) - (Data.POPUP_DIMENSION.width / 2),
-				(Data.DIMENSION.height / 2) - (Data.POPUP_DIMENSION.height / 2),
+				(Data.GAME_DIMENSION.width / 2) - (Data.POPUP_DIMENSION.width / 2),
+				(Data.GAME_DIMENSION.height / 2) - (Data.POPUP_DIMENSION.height / 2),
 				Data.POPUP_DIMENSION.width,
 				Data.POPUP_DIMENSION.height
 				));

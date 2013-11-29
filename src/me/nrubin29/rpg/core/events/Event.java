@@ -15,7 +15,7 @@ public abstract class Event {
 		return new Event(type, trigger.x, trigger.y, isEnabled) {
 			public void run() {
 				to.display();
-                Game.getGUI().getPlayerLabel(Session.getInstance().getLocalPlayer()).setLocation(spawnTo);
+                Session.getInstance().getLocalPlayer().getLabel().setLocation(spawnTo);
 			}
 		};
 	}

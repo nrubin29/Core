@@ -17,7 +17,7 @@ public class Interact extends KeyCommand {
 
 	public Interact() {
 		super(
-				new Key(DataManager.getInstance().getConfigurationFile(Keys.class).getValue("interactID"), false, false, false)
+				new Key(DataManager.getInstance().getConfigurationFile(Keys.class).getValue("interactID"), false, false, false, false)
 				);
 	}
 	
@@ -31,8 +31,8 @@ public class Interact extends KeyCommand {
 		EventManager.getInstance().checkEvents(
 				gui.getCurrentMap(),
 				new Point(
-						gui.getPlayerLabel(Session.getInstance().getLocalPlayer()).getX() + d.getMovement().x,
-						gui.getPlayerLabel(Session.getInstance().getLocalPlayer()).getY() + d.getMovement().y
+						Session.getInstance().getLocalPlayer().getLabel().getX() + d.getMovement().x,
+						Session.getInstance().getLocalPlayer().getLabel().getY() + d.getMovement().y
 						),
 				EventType.INTERACT);
 	}

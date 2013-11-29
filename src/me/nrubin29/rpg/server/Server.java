@@ -26,6 +26,7 @@ public class Server {
         return instance;
     }
 
+    private GUI gui;
     private ServerSocket server;
     private ArrayList<Client> users = new ArrayList<Client>();
 
@@ -33,7 +34,7 @@ public class Server {
         try {
             server = getOpenSocket();
             
-            System.out.println("Port: " + server.getLocalPort());
+            gui = new GUI(server.getLocalPort());
 
             new Thread(new Runnable() {
                 public void run() {
@@ -61,29 +62,33 @@ public class Server {
     }
     
     public void sendPacket(String packet, Client sender) {
-    	System.out.println("Sending " + packet + " from " + sender.getUserName());
+    	gui.write(packet);
     	for (Client client : users) {
     		if (client != sender) client.sendPacket(packet);
     	}
     }
 
-    public Client getClient(String name) {
-        for (Client c : users) {
-            if (c.getUserName().equalsIgnoreCase(name)) return c;
-        }
-        return null;
+    public void sendPacketToPlayer(String packet, Client player) {
+        gui.write(packet + " to " + player.getUserName());
+        player.sendPacket(packet);
     }
 
     public void addClient(Client client) {
         users.add(client);
+        gui.addPlayer(client);
+
+        StringBuffer players = new StringBuffer("PacketListPlayers players:");
+
+        for (Client player : users) {
+            players.append(player.getUserName() + "." + player.getX() + "." + player.getY() + ",");
+        }
+
+        sendPacketToPlayer(players.toString(), client);
     }
 
     public void removeClient(Client client) {
         users.remove(client);
-    }
-
-    public ArrayList<Client> getUsers() {
-        return users;
+        gui.removePlayer(client);
     }
 
     public static void main(String[] args) {

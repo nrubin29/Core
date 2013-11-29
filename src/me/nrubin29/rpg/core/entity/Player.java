@@ -4,8 +4,8 @@ public class Player extends Entity {
 
     private String name;
 
-	public Player(String name) {
-		super("Player");
+	public Player(String name, int x, int y) {
+		super("Player", x, y);
         this.name = name;
 	}
 

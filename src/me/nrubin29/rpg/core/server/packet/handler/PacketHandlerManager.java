@@ -14,15 +14,23 @@ public class PacketHandlerManager {
 	}
 	
 	private ArrayList<PacketHandler> packets = new ArrayList<PacketHandler>();
+
+    public void setup() {
+        packets.add(new PacketJoinHandler());
+        packets.add(new PacketListPlayersHandler());
+        packets.add(new PacketMoveHandler());
+    }
 	
 	/*
 	 * PacketMove player:hi x:1 y:2
 	 */
 	public void handle(String unparsedPacket) {
+        System.out.println("Handling " + unparsedPacket);
+
 		try {
 			String[] unparsedArgs = unparsedPacket.split(" ");
 			
-			Class<?> packetClass = Class.forName("me.nrubin29.rpg.core.server.packet.handler" + unparsedArgs[0] + "Handler");
+			Class<?> packetClass = Class.forName("me.nrubin29.rpg.core.server.packet.handler." + unparsedArgs[0] + "Handler");
 			
 			HashMap<String, String> args = new HashMap<String, String>();
 			
@@ -40,9 +48,5 @@ public class PacketHandlerManager {
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-	
-	public void addPacket(PacketHandler packet) {
-		packets.add(packet);
 	}
 }

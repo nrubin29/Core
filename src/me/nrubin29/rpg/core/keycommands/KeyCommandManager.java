@@ -2,7 +2,6 @@ package me.nrubin29.rpg.core.keycommands;
 
 import java.util.ArrayList;
 
-import me.nrubin29.rpg.core.keycommands.commands.BindKeys;
 import me.nrubin29.rpg.core.keycommands.commands.Fullscreen;
 import me.nrubin29.rpg.core.keycommands.commands.Interact;
 import me.nrubin29.rpg.core.keycommands.commands.Move;
@@ -20,7 +19,6 @@ public class KeyCommandManager {
 	private ArrayList<KeyCommand> cmds = new ArrayList<KeyCommand>();
 	
 	public void setup() {
-		registerKeyCommand(new BindKeys());
 		registerKeyCommand(new Fullscreen());
 		registerKeyCommand(new Interact());
 		registerKeyCommand(new Move());

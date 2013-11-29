@@ -26,7 +26,7 @@ public class DataFile {
 			File file = getFile(fileName + ".config", false);
 			
 			if (!file.exists()) {
-				file.createNewFile();
+                file.createNewFile();
 				
 				File template = new File(Game.class.getClassLoader().getResource("res/files/" + fileName + ".config").toURI());
 				
@@ -84,6 +84,7 @@ public class DataFile {
 	
 	public final void set(String key, Object value) {
 		contents.put(key, String.valueOf(value));
+        save();
 	}
 	
 	private final File getFile(String name, boolean createIfNotExists) {

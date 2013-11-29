@@ -12,7 +12,7 @@ public class Fullscreen extends KeyCommand {
 
 	public Fullscreen() {
 		super(
-				new Key(KeyEvent.VK_F, false, true, false)
+				new Key(KeyEvent.VK_F, true, false, false, false)
 				);
 	}
 	

@@ -1,9 +1,10 @@
 package me.nrubin29.rpg.core.entity;
 
+import java.awt.*;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 
-import javax.swing.ImageIcon;
+import javax.swing.*;
 
 import me.nrubin29.rpg.core.misc.Image;
 import me.nrubin29.rpg.core.util.Data;
@@ -30,8 +31,11 @@ public class Entity implements Image {
     private Direction current;
     
     private HashMap<Direction, Integer> walkCycle = new HashMap<Direction, Integer>();
+
+    private JLabel label;
+    private Point loc;
     
-    public Entity(String name) {
+    public Entity(String name, int x, int y) {
     	for (Field f : getClass().getFields()) {
     		if (f.getType().equals(ImageIcon.class) && !f.getName().equals("face")) {
     			try {
@@ -42,6 +46,10 @@ public class Entity implements Image {
     	}
     	
     	face = ImageUtil.getImage("sprites/" + name.toLowerCase() + "/face");
+
+        label = new JLabel(getImage(Direction.DOWN, false));
+        label.setBounds(x, y, Data.TILE_DIM, Data.TILE_DIM);
+        loc = new Point(x, y);
     }
     
     public ImageIcon getImage(Direction d, boolean moving) {
@@ -58,6 +66,14 @@ public class Entity implements Image {
     
     public Direction getCurrentDirection() {
     	return current;
+    }
+
+    public Point getLocation() {
+        return loc;
+    }
+
+    public JLabel getLabel() {
+        return label;
     }
     
 	public ImageIcon getImage() {

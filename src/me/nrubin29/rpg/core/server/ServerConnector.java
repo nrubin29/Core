@@ -4,10 +4,16 @@ import java.io.BufferedReader;
 import java.io.EOFException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.ConnectException;
 import java.net.Socket;
 
+import me.nrubin29.rpg.core.entity.Player;
 import me.nrubin29.rpg.core.server.packet.handler.PacketHandlerManager;
 import me.nrubin29.rpg.core.server.packet.packet.Packet;
+import me.nrubin29.rpg.core.server.packet.packet.PacketJoin;
+import me.nrubin29.rpg.game.Main;
+
+import javax.swing.*;
 
 public class ServerConnector {
 	
@@ -24,7 +30,9 @@ public class ServerConnector {
     private BufferedReader reader;
     private PrintWriter writer;
 
-    public void initConnection(String ip) {
+    private boolean usingServer = false;
+
+    public boolean initConnection(String ip) {
         try {
             socket = new Socket(ip.split(":")[0], Integer.valueOf(ip.split(":")[1]));
             
@@ -44,6 +52,10 @@ public class ServerConnector {
                     while (true) {
                         try {
                             String packet = reader.readLine();
+
+                            System.out.println("Got packet: " + packet);
+                            
+                            if (packet == null) System.exit(0);
                             
                             PacketHandlerManager.getInstance().handle(packet);
                         }
@@ -54,11 +66,25 @@ public class ServerConnector {
             });
 
             listener.start();
+            
+            sendPacket(new PacketJoin(Session.getInstance().getLocalPlayer().getName()));
+
+            usingServer = true;
+            return true;
         }
-        catch (Exception e) { e.printStackTrace(); }
+        catch (ConnectException e) {
+            JOptionPane.showMessageDialog(null, "Could not connect to server at given port.");
+            return false;
+        }
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "An unexpected error has occurred (" + e + ").");
+            return false;
+        }
     }
     
     public void sendPacket(Packet packet) {
+        if (!usingServer) return;
+
     	try {
             System.out.println("Writing " + packet.asString());
     		writer.println(packet.asString());

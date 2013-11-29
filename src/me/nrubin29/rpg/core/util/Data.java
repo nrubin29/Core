@@ -8,11 +8,10 @@ public class Data {
 	/* GUI */
 	
 	public static final Dimension
-			SPLASH_SCREEN_DIMENSION = new Dimension(550, 100),
-			DIMENSION = new Dimension(640, 500),
+			GAME_DIMENSION = new Dimension(640, 500),
 			POPUP_DIMENSION = new Dimension(300, 130),
-			ACHIEVEMENT_POPUP_DIMENSION = new Dimension(250, 40),
-			ERROR_POPUP_DIMENSION = new Dimension(300, 300);
+			NOTIFICATION_DIMENSION = new Dimension(250, 40),
+			ERROR_DIMENSION = new Dimension(300, 250);
 
     public static final int
     		NUM_ROWS = 15,
@@ -20,9 +19,7 @@ public class Data {
     		TILES_PER_ROW = 20,
     		TILES_PER_COLUMN = 15;
     
-    public static final int
-    		TILE_DIM = 32,
-    		STATUSBAR_OBJECT_DIM = 16;
+    public static final int TILE_DIM = 32;
     
     public static final Color
 			TRANSLUCENT = new Color(0, 0, 0, 50),
@@ -41,17 +38,11 @@ public class Data {
     
     public static final String
     		ENGINE_NAME = "RPG-Core",
-    		ENGINE_VERSION = "0.6";
+    		ENGINE_VERSION = "0.7";
     
     public static String
     		NAME,
     		VERSION;
     
     public static final int ANIMATION_DURATION = 75;
- 
-    /* Player */
-    
-    public static final int
-    		MAX_HEALTH = 3,
-    		MAX_FOOD = 5;
 }

@@ -11,14 +11,14 @@ public class Move extends KeyCommand {
 
 	public Move() {
 		super(
-				new Key(DataManager.getInstance().getConfigurationFile(Keys.class).getValue("upID"), false, false, false),
-				new Key(DataManager.getInstance().getConfigurationFile(Keys.class).getValue("downID"), false, false, false),
-				new Key(DataManager.getInstance().getConfigurationFile(Keys.class).getValue("leftID"), false, false, false),
-				new Key(DataManager.getInstance().getConfigurationFile(Keys.class).getValue("rightID"), false, false, false)
+				new Key(DataManager.getInstance().getConfigurationFile(Keys.class).getValue("upID"), false, false, false, false),
+				new Key(DataManager.getInstance().getConfigurationFile(Keys.class).getValue("downID"), false, false, false, false),
+				new Key(DataManager.getInstance().getConfigurationFile(Keys.class).getValue("leftID"), false, false, false, false),
+				new Key(DataManager.getInstance().getConfigurationFile(Keys.class).getValue("rightID"), false, false, false, false)
 			);
 	}
 	
 	public void run(Key key) {
-		Game.getGUI().movement(Session.getInstance().getLocalPlayer(), key.getKey());
+        Game.getGUI().movement(Session.getInstance().getLocalPlayer(), key.getKey(), true);
 	}
 }

@@ -9,9 +9,11 @@ import java.util.HashMap;
 public class PacketMoveHandler extends PacketHandler {
 
 	public void handle(HashMap<String, String> args) {
-		Player player = Session.getInstance().getPlayer(args.get("player"));
-		int x = Integer.parseInt(args.get("x")), y = Integer.parseInt(args.get("y"));
+        System.out.println("Got PacketMove");
 
-        Main.getGUI().getPlayerLabel(player).setLocation(x, y);
+		Player player = Session.getInstance().getPlayer(args.get("player"));
+		int key = Integer.parseInt(args.get("key"));
+
+        Main.getGUI().movement(player, key, false);
     }
 }

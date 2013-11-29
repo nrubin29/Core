@@ -11,7 +11,11 @@ public class FontUtil {
 	public static Font getFont() {
 		if (font != null) return font;
 		
-		try { font = Font.createFont(Font.PLAIN, Game.class.getClassLoader().getResourceAsStream("res/font.ttf")); return font; }
+		try {
+            font = Font.createFont(Font.PLAIN, Game.class.getClassLoader().getResourceAsStream("res/font.ttf"));
+            font = font.deriveFont(Font.PLAIN, 12);
+            return font;
+        }
 		catch (Exception e) { return null; }
 	}
 	

@@ -2,7 +2,7 @@ package me.nrubin29.rpg.game.quests;
 
 import me.nrubin29.rpg.core.events.Event;
 import me.nrubin29.rpg.core.events.Event.EventType;
-import me.nrubin29.rpg.core.gui.AchievementPopup;
+import me.nrubin29.rpg.core.gui.Notification;
 import me.nrubin29.rpg.core.gui.Popup.PopupFactory;
 import me.nrubin29.rpg.core.misc.Achievement;
 import me.nrubin29.rpg.core.quest.Quest;
@@ -15,7 +15,7 @@ public class SampleQuest extends Quest {
 	public void startQuest() {
 		final Event second = new Event(EventType.MOVE, 6, 6, false) {
 			public void run() {
-				AchievementPopup.popupAcheievment(Achievement.HUNT);
+				Notification.popupAcheievment(Achievement.HUNT);
 				finishQuest();
 			}
 		};
