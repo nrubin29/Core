@@ -29,9 +29,9 @@ public class Popup extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	public static class PopupFactory {
-		 private ArrayList<Popup> popups = new ArrayList<Popup>();
-		 private Runnable whenDone;
-		 private int cursor;
+        private ArrayList<Popup> popups = new ArrayList<Popup>();
+        private Runnable whenDone;
+        private int cursor;
 		 
 		 public PopupFactory addPopup(Image image, String text) {
 			JPanel panel = new JPanel();
@@ -56,16 +56,7 @@ public class Popup extends JPanel {
 				
 			panel.add(textArea);
 			 
-			 popups.add(new Popup(image, panel, new Runnable() {
-					public void run() {
-						cursor++;
-						if (popups.size() <= cursor) {
-							if (whenDone != null) whenDone.run();
-							return;
-						}
-						popups.get(cursor).add();
-					}
-				}));
+			 addCustom(image, panel);
 			 return this;
 		 }
 		 

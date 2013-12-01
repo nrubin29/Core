@@ -38,7 +38,7 @@ public class Data {
     
     public static final String
     		ENGINE_NAME = "RPG-Core",
-    		ENGINE_VERSION = "0.7";
+    		ENGINE_VERSION = “0.8”;
     
     public static String
     		NAME,

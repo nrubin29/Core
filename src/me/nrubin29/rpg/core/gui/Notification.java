@@ -6,7 +6,7 @@ import javax.swing.*;
 
 import me.nrubin29.rpg.core.Game;
 import me.nrubin29.rpg.core.data.DataManager;
-import me.nrubin29.rpg.core.data.files.Player;
+import me.nrubin29.rpg.core.data.files.PlayerData;
 import me.nrubin29.rpg.core.misc.Achievement;
 import me.nrubin29.rpg.core.util.Data;
 import me.nrubin29.rpg.core.util.FontUtil;
@@ -41,7 +41,7 @@ public class Notification extends JPanel {
         setBounds(new Rectangle(Data.GAME_DIMENSION.width - (Data.NOTIFICATION_DIMENSION.width) - Data.TILE_DIM, Data.TILE_DIM, Data.NOTIFICATION_DIMENSION.width, Data.NOTIFICATION_DIMENSION.height));
         setOpaque(false);
 
-        if (ach != null) DataManager.getInstance().<Player>getConfigurationFile(Player.class).addAchievement(ach);
+        if (ach != null) DataManager.getInstance().<PlayerData>getConfigurationFile(PlayerData.class).addAchievement(ach);
 
         TimerUtil.runTimer(5 * 1000, new Runnable() {
             public void run() {

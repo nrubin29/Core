@@ -32,9 +32,9 @@ public class ServerConnector {
 
     private boolean usingServer = false;
 
-    public boolean initConnection(String ip) {
+    public boolean initConnection(String ip, int port) {
         try {
-            socket = new Socket(ip.split(":")[0], Integer.valueOf(ip.split(":")[1]));
+            socket = new Socket(ip, port);
             
             System.out.println("Connecting to " + socket);
 
@@ -78,6 +78,7 @@ public class ServerConnector {
         }
         catch (Exception e) {
             JOptionPane.showMessageDialog(null, "An unexpected error has occurred (" + e + ").");
+            e.printStackTrace();
             return false;
         }
     }

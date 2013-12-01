@@ -1,10 +1,13 @@
 package me.nrubin29.rpg.core;
 
 import me.nrubin29.rpg.core.data.DataManager;
+import me.nrubin29.rpg.core.data.LocalizationManager;
 import me.nrubin29.rpg.core.data.files.Keys;
+import me.nrubin29.rpg.core.data.files.PlayerData;
 import me.nrubin29.rpg.core.entity.Player;
 import me.nrubin29.rpg.core.gui.ErrorGUI;
 import me.nrubin29.rpg.core.gui.GUI;
+import me.nrubin29.rpg.core.item.Apple;
 import me.nrubin29.rpg.core.server.ServerConnector;
 import me.nrubin29.rpg.core.server.Session;
 import me.nrubin29.rpg.core.server.packet.handler.PacketHandlerManager;
@@ -38,7 +41,7 @@ public abstract class Game extends JFrame {
 
     	Thread.setDefaultUncaughtExceptionHandler(new UncaughtExceptionHandler() {
 			public void uncaughtException(Thread th, Throwable e) {
-				e.printStackTrace(); //TODO: Temp
+				e.printStackTrace();
 				
 				if (frame != null) {
 					frame.setVisible(false);
@@ -54,7 +57,9 @@ public abstract class Game extends JFrame {
         Data.NAME = name;
         Data.VERSION = version;
 
-        final JTextField playerName = new JTextField(15), secret = new JTextField(10);
+        LocalizationManager.getInstance().setCurrentLanguage(LocalizationManager.Language.ENGLISH);
+
+        final JTextField playerName = new JTextField(15), ip = new JTextField(14), secret = new JTextField(10);
         final JButton connect = new JButton("Connect"), local = new JButton("Play Local"), bindKeys = new JButton("Bind Keys");
 
         local.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -68,12 +73,16 @@ public abstract class Game extends JFrame {
                     return;
                 }
 
-                Session.getInstance().setLocalPlayer(new Player(name, 5 * Data.TILE_DIM, 5 * Data.TILE_DIM));
+                if (Session.getInstance().getLocalPlayer() == null) {
+                    Session.getInstance().setLocalPlayer(new Player(name, 5 * Data.TILE_DIM, 5 * Data.TILE_DIM));
+                }
 
                 DataManager.getInstance().setup();
                 TilesheetManager.getInstance().setup();
                 FontUtil.getFont();
                 PacketHandlerManager.getInstance().setup();
+
+                for (int i = 0; i < 5; i++) ((PlayerData) DataManager.getInstance().getConfigurationFile(PlayerData.class)).addItem(new Apple());
 
                 frame = new JFrame(Data.NAME + " v" + Data.VERSION + " (" + Data.ENGINE_NAME + " v" + Data.ENGINE_VERSION + ")");
                 frame.setBackground(Data.BACKGROUND_COLOR);
@@ -114,11 +123,15 @@ public abstract class Game extends JFrame {
         connect.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                String name = playerName.getText();
-                String secretString = secret.getText();
+                String name = playerName.getText(), ipString = ip.getText(), secretString = secret.getText();
 
                 if (name.equals("")) {
                     JOptionPane.showMessageDialog(Game.this, "You didn't enter a name.");
+                    return;
+                }
+
+                if (ipString.equals("")) {
+                    JOptionPane.showMessageDialog(Game.this, "You didn't enter an IP address.");
                     return;
                 }
 
@@ -136,7 +149,9 @@ public abstract class Game extends JFrame {
                     return;
                 }
 
-                if (!ServerConnector.getInstance().initConnection("127.0.0.1:" + secretInt)) return;
+                Session.getInstance().setLocalPlayer(new Player(name, 5 * Data.TILE_DIM, 5 * Data.TILE_DIM));
+
+                if (!ServerConnector.getInstance().initConnection(ipString, secretInt)) return;
 
                 local.doClick();
             }
@@ -156,7 +171,7 @@ public abstract class Game extends JFrame {
                 String[] strs = new String[] { "upID", "downID", "leftID", "rightID", "interactID" };
 
                 for (final String key : strs) {
-                    final JTextField set = new JTextField(String.valueOf(KeyStroke.getKeyStroke(Integer.parseInt(keys.getValue(key)), 0)), 15);
+                    final JTextField set = new JTextField(String.valueOf(KeyStroke.getKeyStroke(Integer.parseInt(keys.getValue(key)), 0)).toLowerCase(), 15);
                     set.setEditable(false);
 
                     set.addKeyListener(new KeyAdapter() {
@@ -177,8 +192,9 @@ public abstract class Game extends JFrame {
         panel.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setMaximumSize(new Dimension(400, 400));
-        panel.add(createTitledInputPanel("Name", playerName));
-        panel.add(createTitledInputPanel("Secret Number", secret));
+        panel.add(createTitledInputPanel(LocalizationManager.getInstance().getString("name"), playerName));
+        panel.add(createTitledInputPanel(LocalizationManager.getInstance().getString("server"), ip));
+        panel.add(createTitledInputPanel(LocalizationManager.getInstance().getString("secret"), secret));
         panel.add(connect);
         panel.add(local);
         panel.add(bindKeys);

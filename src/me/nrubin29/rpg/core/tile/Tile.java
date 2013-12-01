@@ -5,9 +5,10 @@ import java.awt.Point;
 import javax.swing.ImageIcon;
 
 import me.nrubin29.rpg.core.misc.Image;
+import me.nrubin29.rpg.core.misc.Interactable;
 import me.nrubin29.rpg.core.util.ImageUtil;
 
-public enum Tile implements Image {
+public enum Tile implements Image, Interactable {
 
 	EMPTY,
 	
@@ -70,4 +71,6 @@ public enum Tile implements Image {
 		
 		return null;
 	}
+
+    public void interact() { /* No need to do anything. */ }
 }

@@ -7,11 +7,12 @@ import java.util.HashMap;
 import javax.swing.*;
 
 import me.nrubin29.rpg.core.misc.Image;
+import me.nrubin29.rpg.core.misc.Interactable;
 import me.nrubin29.rpg.core.util.Data;
 import me.nrubin29.rpg.core.util.ImageUtil;
 import me.nrubin29.rpg.core.util.MapTileUtil.Direction;
 
-public class Entity implements Image {
+public abstract class Entity implements Image, Interactable {
 
 	public ImageIcon
 			downStatic = null,
@@ -63,6 +64,8 @@ public class Entity implements Image {
     	}
     	catch (Exception e) { return null; }
     }
+
+    public abstract void interact();
     
     public Direction getCurrentDirection() {
     	return current;

@@ -17,11 +17,13 @@ public class Interact extends KeyCommand {
 
 	public Interact() {
 		super(
-				new Key(DataManager.getInstance().getConfigurationFile(Keys.class).getValue("interactID"), false, false, false, false)
+				new Key(DataManager.getInstance().getConfigurationFile(Keys.class).getValue("interactID"), false, false, false)
 				);
 	}
 	
 	public void run(Key key) {
+        //TODO: Use Interactable interface!
+
 		GUI gui = Game.getGUI();
 		
 		if (!gui.isInputEnabled()) return;

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import me.nrubin29.rpg.core.keycommands.commands.Fullscreen;
 import me.nrubin29.rpg.core.keycommands.commands.Interact;
+import me.nrubin29.rpg.core.keycommands.commands.Inventory;
 import me.nrubin29.rpg.core.keycommands.commands.Move;
 
 public class KeyCommandManager {
@@ -21,6 +22,7 @@ public class KeyCommandManager {
 	public void setup() {
 		registerKeyCommand(new Fullscreen());
 		registerKeyCommand(new Interact());
+        registerKeyCommand(new Inventory());
 		registerKeyCommand(new Move());
 	}
 	

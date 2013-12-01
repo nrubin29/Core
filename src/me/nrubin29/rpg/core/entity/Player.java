@@ -12,4 +12,6 @@ public class Player extends Entity {
     public String getName() {
         return name;
     }
+
+    public void interact() { /* No need to do anything. */ }
 }
