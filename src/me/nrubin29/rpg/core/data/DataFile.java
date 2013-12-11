@@ -9,10 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-import javax.swing.filechooser.FileSystemView;
-
-import me.nrubin29.rpg.core.Game;
-import me.nrubin29.rpg.core.util.Data;
+import me.nrubin29.rpg.core.Main;
 
 public class DataFile {
 
@@ -28,14 +25,12 @@ public class DataFile {
 		this.fileName = fileName;
 		
 		try {
-            File file = getFile(folderName, fileName + ".config", false);
+            File file = DataManager.getInstance().getFile(folderName, fileName + ".config", false);
 			
 			if (!file.exists()) {
                 file.createNewFile();
 				
-				File template = new File(Game.class.getClassLoader().getResource("res/files/" + (!folderName.equals("") ? folderName + "/" : "") + fileName + ".config").toURI());
-
-                System.out.println(template.getPath());
+				File template = new File(Main.class.getClassLoader().getResource("res/files/" + (!folderName.equals("") ? folderName + "/" : "") + fileName + ".config").toURI());
 
 				ArrayList<String> lines = new ArrayList<String>();
 				
@@ -71,7 +66,7 @@ public class DataFile {
 	
 	public final void save() {
 		try {
-			File file = getFile(folderName, fileName + ".config", false);
+			File file = DataManager.getInstance().getFile(folderName, fileName + ".config", false);
 			
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 			
@@ -92,47 +87,5 @@ public class DataFile {
 	public final void set(String key, Object value) {
 		contents.put(key, String.valueOf(value));
         save();
-	}
-	
-	private final File getFile(String folder, String name, boolean createIfNotExists) {
-		String homedir = FileSystemView.getFileSystemView().getHomeDirectory().getAbsolutePath();
-		String osname = System.getProperty("os.name").toLowerCase();
-		File rootFolder;
-			
-		if (osname.startsWith("mac")) rootFolder = new File(homedir + "/Library/Application Support/" + Data.NAME);
-		else if (osname.startsWith("linux")) rootFolder = new File(homedir + "/." +  Data.NAME + "/");
-		else if (osname.startsWith("win")) rootFolder = new File(System.getenv("APPDATA") + "\\." + Data.NAME + "\\");
-		else throw new RuntimeException("Unsupported OS: " + osname);
-
-        if (!rootFolder.exists()) {
-
-            boolean success = false;
-
-            try { success = rootFolder.mkdir(); }
-            catch (Exception e) { System.out.println("Could not create folder."); }
-
-            if (!success) System.out.println("Could not create folder.");
-        }
-
-        if (!folder.equals("")) {
-            File subFolder = new File(rootFolder, folder);
-
-            if (!subFolder.exists()) subFolder.mkdir();
-        }
-		
-		File f = new File((!folder.equals("") ? new File(rootFolder, folder) : rootFolder), name);
-
-        System.out.println(f.getPath());
-		
-		if (!f.exists() && createIfNotExists) {
-			boolean s = false;
-		    	
-		    try { s = f.createNewFile(); }
-		    catch (Exception e) { System.out.println("Could not create file."); }
-		    	
-		    if (!s) System.out.println("Could not create file.");
-		}
-		
-		return f;
 	}
 }

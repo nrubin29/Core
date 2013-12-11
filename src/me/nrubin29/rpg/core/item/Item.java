@@ -2,8 +2,8 @@ package me.nrubin29.rpg.core.item;
 
 import me.nrubin29.rpg.core.data.DataManager;
 import me.nrubin29.rpg.core.data.files.PlayerData;
+import me.nrubin29.rpg.core.entity.Interactable;
 import me.nrubin29.rpg.core.misc.Image;
-import me.nrubin29.rpg.core.misc.Interactable;
 import me.nrubin29.rpg.core.util.ImageUtil;
 
 import javax.swing.*;
@@ -30,7 +30,7 @@ public abstract class Item implements Image, Interactable {
     }
 
     public ImageIcon getImage(int width, int height) {
-        return ImageUtil.resizeImage(ImageUtil.getImage("logo"), width, height);
+        return ImageUtil.getImage("logo", width, height);
     }
 
     public void interact() {

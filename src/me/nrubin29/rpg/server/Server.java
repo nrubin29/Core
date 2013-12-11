@@ -32,7 +32,7 @@ public class Server {
 
     public void start() {
         try {
-            server = getOpenSocket();
+        	server = getOpenSocket();
             
             gui = new GUI(server.getLocalPort());
 
@@ -80,7 +80,7 @@ public class Server {
         StringBuffer players = new StringBuffer("PacketListPlayers players:");
 
         for (Client player : users) {
-            players.append(player.getUserName() + "." + player.getX() + "." + player.getY() + ",");
+            players.append(player.getUserName() + "%" + player.getX() + "%" + player.getY() + ",");
         }
 
         sendPacketToPlayer(players.toString(), client);

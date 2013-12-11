@@ -1,11 +1,13 @@
 package me.nrubin29.rpg.core.entity;
 
+import java.awt.Point;
+
 public class Player extends Entity {
 
     private String name;
 
-	public Player(String name, int x, int y) {
-		super("Player", x, y);
+	public Player(String name, Point spawn) {
+		super("Player", spawn);
         this.name = name;
 	}
 

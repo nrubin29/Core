@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -19,10 +20,10 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
-import me.nrubin29.rpg.core.Game;
-import me.nrubin29.rpg.core.misc.Image;
-import me.nrubin29.rpg.core.util.Data;
+import me.nrubin29.rpg.core.keycommand.KeyCommandManager;
+import me.nrubin29.rpg.core.util.Constants;
 import me.nrubin29.rpg.core.util.FontUtil;
+import me.nrubin29.rpg.core.util.ImageUtil;
 
 public class Popup extends JPanel {
 
@@ -33,10 +34,9 @@ public class Popup extends JPanel {
         private Runnable whenDone;
         private int cursor;
 		 
-		 public PopupFactory addPopup(Image image, String text) {
+		 public PopupFactory addPopup(ImageIcon image, String text) {
 			JPanel panel = new JPanel();
 			panel.setFocusable(false);
-			panel.setBackground(Data.BACKGROUND_COLOR);
 			panel.setAlignmentX(Component.CENTER_ALIGNMENT);
 			
 			JTextPane textArea = new JTextPane();
@@ -44,9 +44,7 @@ public class Popup extends JPanel {
 			textArea.setEditable(false);
 			textArea.setFocusable(false);
 			textArea.setFont(FontUtil.getFont(14));
-			textArea.setForeground(Data.FOREGROUND_COLOR_ON_BACKGROUND);
-			textArea.setBackground(Data.BACKGROUND_COLOR);
-			textArea.setPreferredSize(new Dimension(Data.POPUP_DIMENSION.width, 40));
+			textArea.setPreferredSize(new Dimension(Constants.POPUP_DIMENSION.width, 40));
 			textArea.setAlignmentX(Component.CENTER_ALIGNMENT);
 			
 			StyledDocument doc = textArea.getStyledDocument();
@@ -57,10 +55,11 @@ public class Popup extends JPanel {
 			panel.add(textArea);
 			 
 			 addCustom(image, panel);
+			 
 			 return this;
 		 }
 		 
-		 public PopupFactory addCustom(Image image, JComponent comp) {
+		 public PopupFactory addCustom(ImageIcon image, JComponent comp) {
 			 popups.add(new Popup(image, comp, new Runnable() {
 					public void run() {
 						cursor++;
@@ -84,9 +83,9 @@ public class Popup extends JPanel {
 		 }
 	}
 	
-	private Popup(Image image, JComponent comp, final Runnable whenDone) {
+	private Popup(ImageIcon image, JComponent comp, final Runnable whenDone) {
 		if (image != null) {
-			JLabel img = new JLabel(image.getImage(75, 60));
+			JLabel img = new JLabel(ImageUtil.resizeImage(image, 75, 60));
 			img.setBorder(BorderFactory.createLineBorder(Color.BLUE));
 			img.setAlignmentX(Component.CENTER_ALIGNMENT);
 			img.setFocusable(false);
@@ -100,8 +99,8 @@ public class Popup extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				Popup.this.setVisible(false);
-				Game.getGUI().remove(Popup.this);
-				Game.getGUI().setInputEnabled(true);
+				GUI.getInstance().remove(Popup.this);
+				KeyCommandManager.getInstance().setInputEnabled(true);
 				
 				if (whenDone != null) whenDone.run();
 			}
@@ -110,19 +109,17 @@ public class Popup extends JPanel {
 		add(comp);
 		add(x);
 		
-		setBorder(BorderFactory.createLineBorder(Color.BLUE));
-		setBackground(Data.BACKGROUND_COLOR);
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		setBounds(new Rectangle(
-				(Data.GAME_DIMENSION.width / 2) - (Data.POPUP_DIMENSION.width / 2),
-				(Data.GAME_DIMENSION.height / 2) - (Data.POPUP_DIMENSION.height / 2),
-				Data.POPUP_DIMENSION.width,
-				Data.POPUP_DIMENSION.height
+				(Constants.GAME_DIMENSION.width / 2) - (Constants.POPUP_DIMENSION.width / 2),
+				(Constants.GAME_DIMENSION.height / 2) - (Constants.POPUP_DIMENSION.height / 2),
+				Constants.POPUP_DIMENSION.width,
+				Constants.POPUP_DIMENSION.height
 				));
 	}
 	
 	public void add() {
-		Game.getGUI().add(this, Data.POPUP_LAYER);
-		Game.getGUI().setInputEnabled(false);
+		GUI.getInstance().add(this);
+		KeyCommandManager.getInstance().setInputEnabled(false);
 	}
 }

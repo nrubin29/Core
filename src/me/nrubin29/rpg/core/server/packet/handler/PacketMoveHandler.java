@@ -1,19 +1,20 @@
 package me.nrubin29.rpg.core.server.packet.handler;
 
-import me.nrubin29.rpg.core.entity.Player;
-import me.nrubin29.rpg.core.server.Session;
-import me.nrubin29.rpg.game.Main;
-
 import java.util.HashMap;
+
+import me.nrubin29.rpg.core.entity.Player;
+import me.nrubin29.rpg.core.gui.GUI;
+import me.nrubin29.rpg.core.map.Direction;
+import me.nrubin29.rpg.core.server.Session;
 
 public class PacketMoveHandler extends PacketHandler {
 
 	public void handle(HashMap<String, String> args) {
-        System.out.println("Got PacketMove");
+        System.out.println("Got PacketMove " + "for " + args.get("player"));
 
 		Player player = Session.getInstance().getPlayer(args.get("player"));
-		int key = Integer.parseInt(args.get("key"));
+		Direction dir = Direction.valueOf(args.get("direction"));
 
-        Main.getGUI().movement(player, key, false);
+        GUI.getInstance().movement(player, dir, false); //TODO Maybe not?
     }
 }

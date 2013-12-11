@@ -3,8 +3,8 @@ package me.nrubin29.rpg.core.quest;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-import me.nrubin29.rpg.core.events.Event;
-import me.nrubin29.rpg.core.events.EventManager;
+import me.nrubin29.rpg.core.event.Event;
+import me.nrubin29.rpg.core.event.EventManager;
 import me.nrubin29.rpg.core.map.Map;
 import me.nrubin29.rpg.core.map.MapManager;
 

@@ -1,5 +1,7 @@
 package me.nrubin29.rpg.core.entity;
 
+import java.awt.Point;
+
 public class NPC extends Entity {
 
     public enum NPCType {
@@ -11,8 +13,8 @@ public class NPC extends Entity {
         }
     }
 
-    public NPC(NPCType type, int x, int y) {
-        super(type.getType(), x, y);
+    public NPC(NPCType type, Point spawn) {
+        super(type.getType(), spawn);
     }
 
     public void interact() {

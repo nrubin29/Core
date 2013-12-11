@@ -17,23 +17,15 @@ public class Client {
 
     public Client(Socket socket) {
         try {
-        	System.out.println("Connection Request!");
-        	
         	reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             writer = new PrintWriter(socket.getOutputStream(), true);
 
-            System.out.println("Waiting for userName.");
-
             this.userName = reader.readLine();
-            
-            System.out.println("Got it!");
 
             Thread messageListener = new Thread(new Runnable() {
                 public void run() {
                     while (true) {
                         try {
-                            System.out.println("We got something!");
-
                             String in = reader.readLine();
 
                             if (in == null) {
@@ -42,7 +34,7 @@ public class Client {
                             }
 
                             /*
-                            PacketMove player:Noah key:40 x:20 y:40
+                            PacketMove player:Noah direction:DOWN x:20 y:40
                              */
                             if (in.startsWith("PacketMove")) {
                                 for (String str : in.split(" ")) {
@@ -50,7 +42,7 @@ public class Client {
                                     else if (str.startsWith("y:")) y = Integer.parseInt(str.substring(2));
                                 }
 
-                                System.out.println("Updated " + getUserName() + " to (" + x + "," + y + ")");
+                                System.out.println("Updated " + getUserName() + " to position (" + x + "," + y + ")");
                             }
 
                             Server.getInstance().sendPacket(in, Client.this);

@@ -1,8 +1,8 @@
 package me.nrubin29.rpg.core.audio;
 
 import javazoom.jl.player.Player;
-import me.nrubin29.rpg.core.Game;
-import me.nrubin29.rpg.core.util.TimerUtil;
+import me.nrubin29.rpg.core.Main;
+import me.nrubin29.rpg.core.util.ThreadUtil;
 
 public class AudioPlayer {
 	
@@ -17,9 +17,8 @@ public class AudioPlayer {
 	private Player bg;
 	
 	public void setBackgroundMusic(final Music audio) {
-		TimerUtil.runThreadInBackground(new Runnable() {
+		ThreadUtil.runThreadInBackground(new Runnable() {
 			public void run() {
-				System.out.println("Running");
 				try {
 					bg = createPlayer(audio);
 					bg.play();
@@ -34,17 +33,21 @@ public class AudioPlayer {
 		if (bg != null) bg.close();
 	}
 	
-	public void playSoundEffect(SoundEffect audio) {
-		try {
-			Player player = createPlayer(audio);
-			player.play();
-			player.close();
-		}
-		catch (Exception e) { }
+	public void playSoundEffect(final SoundEffect audio) {
+		ThreadUtil.runThreadInBackground(new Runnable() {
+			public void run() {
+				try {
+					Player player = createPlayer(audio);
+					player.play();
+					player.close();
+				}
+				catch (Exception e) { }
+			}
+		}, false);
 	}
 	
 	public Player createPlayer(Audio audio) {
-		try { return new Player(Game.class.getClassLoader().getResource(audio.getPath()).openStream()); }
+		try { return new Player(Main.class.getClassLoader().getResource(audio.getPath()).openStream()); }
 		catch (Exception e) { return null; }
 	}
 }

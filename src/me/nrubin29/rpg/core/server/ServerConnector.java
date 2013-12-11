@@ -7,13 +7,11 @@ import java.io.PrintWriter;
 import java.net.ConnectException;
 import java.net.Socket;
 
-import me.nrubin29.rpg.core.entity.Player;
+import javax.swing.JOptionPane;
+
 import me.nrubin29.rpg.core.server.packet.handler.PacketHandlerManager;
 import me.nrubin29.rpg.core.server.packet.packet.Packet;
 import me.nrubin29.rpg.core.server.packet.packet.PacketJoin;
-import me.nrubin29.rpg.game.Main;
-
-import javax.swing.*;
 
 public class ServerConnector {
 	
@@ -35,17 +33,11 @@ public class ServerConnector {
     public boolean initConnection(String ip, int port) {
         try {
             socket = new Socket(ip, port);
-            
-            System.out.println("Connecting to " + socket);
 
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             writer = new PrintWriter(socket.getOutputStream(), true);
             
-            System.out.println("Sending userName.");
-            
             writer.println(Session.getInstance().getLocalPlayer().getName());
-            
-            System.out.println("Sent!");
 
             listener = new Thread(new Runnable() {
                 public void run() {

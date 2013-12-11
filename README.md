@@ -9,14 +9,18 @@ RPG-Core is an engine for creating visual games in Java. It is built upon Java's
 * Localizations
 * Sprite Loading and Basic Animation
 * Tile-based Event System
-* Nice Login Menu
+* Menu
+* Map Maker
 * Achievement System
-* Items and Inventory
 * Intelligent Error Handling
 * Built-In Popup System
+* Items and Inventory
 * Key Commands (Ex: <kbd>ctrl</kbd> + <kbd>f</kbd> toggles fullscreen)
 * Custom Key Bindings
-* Simple but Powerful Map Rendering System
+* Custom Look and Feel for JComponents
+* Map Parsing and Rendering
 * Quest System (to allow easy event management)
+* Simple but Powerful Scripting Language
 * Multiplayer
 * Tilesheet Parsing
+* Launcher

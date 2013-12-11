@@ -3,18 +3,19 @@ package me.nrubin29.rpg.core.data.files;
 import java.util.ArrayList;
 
 import me.nrubin29.rpg.core.data.DataFile;
+import me.nrubin29.rpg.core.gui.Notification;
 import me.nrubin29.rpg.core.item.Item;
 import me.nrubin29.rpg.core.misc.Achievement;
-import me.nrubin29.rpg.core.util.Data;
 
 public class PlayerData extends DataFile {
 	
-	public PlayerData() { super("playerdata"); }
+	public PlayerData() { super("data", "playerdata"); }
     
     private ArrayList<Achievement> achs = new ArrayList<Achievement>();
     
     public void addAchievement(Achievement ach) {
     	achs.add(ach);
+    	Notification.popupAcheievment(ach);
     }
     
     public boolean hasAchievement(Achievement ach) {
@@ -27,7 +28,8 @@ public class PlayerData extends DataFile {
         inv.add(item);
     }
 
-    public ArrayList<Item> getInventory() {
+    @SuppressWarnings("unchecked")
+	public ArrayList<Item> getInventory() {
         return (ArrayList<Item>) inv.clone();
     }
 }

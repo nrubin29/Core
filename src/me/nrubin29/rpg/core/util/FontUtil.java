@@ -2,7 +2,7 @@ package me.nrubin29.rpg.core.util;
 
 import java.awt.Font;
 
-import me.nrubin29.rpg.core.Game;
+import me.nrubin29.rpg.core.Main;
 
 public class FontUtil {
 
@@ -12,7 +12,7 @@ public class FontUtil {
 		if (font != null) return font;
 		
 		try {
-            font = Font.createFont(Font.PLAIN, Game.class.getClassLoader().getResourceAsStream("res/font.ttf"));
+            font = Font.createFont(Font.PLAIN, Main.class.getClassLoader().getResourceAsStream("res/font.otf"));
             font = font.deriveFont(Font.PLAIN, 12);
             return font;
         }

@@ -4,5 +4,5 @@ import me.nrubin29.rpg.core.data.DataFile;
 
 public class Keys extends DataFile {
 
-	public Keys() { super("keys"); }
+	public Keys() { super("data", "keys"); }
 }

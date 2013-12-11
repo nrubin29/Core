@@ -1,10 +1,8 @@
 package me.nrubin29.rpg.core.server;
 
-import me.nrubin29.rpg.core.entity.Player;
-import me.nrubin29.rpg.core.util.Data;
-import me.nrubin29.rpg.game.Main;
-
 import java.util.ArrayList;
+
+import me.nrubin29.rpg.core.entity.Player;
 
 public class Session {
 
@@ -35,12 +33,10 @@ public class Session {
 
     public void addPlayer(Player player) {
         players.add(player);
-        Main.getGUI().add(player.getLabel(), Data.SPRITE_LAYER);
     }
 
     public void removePlayer(Player player) {
         players.remove(player);
-        Main.getGUI().remove(player.getLabel());
     }
 
     public Player getLocalPlayer() {

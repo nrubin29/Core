@@ -4,8 +4,8 @@ import java.awt.Point;
 
 import javax.swing.ImageIcon;
 
+import me.nrubin29.rpg.core.entity.Interactable;
 import me.nrubin29.rpg.core.misc.Image;
-import me.nrubin29.rpg.core.misc.Interactable;
 import me.nrubin29.rpg.core.util.ImageUtil;
 
 public enum Tile implements Image, Interactable {

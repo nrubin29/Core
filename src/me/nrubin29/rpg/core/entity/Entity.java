@@ -1,16 +1,15 @@
 package me.nrubin29.rpg.core.entity;
 
-import java.awt.*;
+import java.awt.Point;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 
-import javax.swing.*;
+import javax.swing.ImageIcon;
 
+import me.nrubin29.rpg.core.map.Direction;
 import me.nrubin29.rpg.core.misc.Image;
-import me.nrubin29.rpg.core.misc.Interactable;
-import me.nrubin29.rpg.core.util.Data;
+import me.nrubin29.rpg.core.util.Constants;
 import me.nrubin29.rpg.core.util.ImageUtil;
-import me.nrubin29.rpg.core.util.MapTileUtil.Direction;
 
 public abstract class Entity implements Image, Interactable {
 
@@ -29,18 +28,17 @@ public abstract class Entity implements Image, Interactable {
 			upMoving2 = null,
 			face = null;
     
-    private Direction current;
+	private ImageIcon currentImage;
+    private Direction currentDirection;
+    private Point currentLocation;
     
     private HashMap<Direction, Integer> walkCycle = new HashMap<Direction, Integer>();
-
-    private JLabel label;
-    private Point loc;
     
-    public Entity(String name, int x, int y) {
+    public Entity(String name, Point spawn) {
     	for (Field f : getClass().getFields()) {
     		if (f.getType().equals(ImageIcon.class) && !f.getName().equals("face")) {
     			try {
-    				f.set(this, ImageUtil.resizeImage(ImageUtil.getImage("sprites/" + name.toLowerCase() + "/" + f.getName()), Data.TILE_DIM, Data.TILE_DIM));
+    				f.set(this, ImageUtil.getImage("sprites/" + name.toLowerCase() + "/" + f.getName(), Constants.TILE_DIM, Constants.TILE_DIM));
     			}
     			catch (Exception e) { e.printStackTrace(); }
     		}
@@ -48,13 +46,12 @@ public abstract class Entity implements Image, Interactable {
     	
     	face = ImageUtil.getImage("sprites/" + name.toLowerCase() + "/face");
 
-        label = new JLabel(getImage(Direction.DOWN, false));
-        label.setBounds(x, y, Data.TILE_DIM, Data.TILE_DIM);
-        loc = new Point(x, y);
+    	this.currentImage = getImage(Direction.DOWN, false);
+        this.currentLocation = spawn;
     }
     
     public ImageIcon getImage(Direction d, boolean moving) {
-    	current = d;
+    	this.currentDirection = d;
     	
     	if (walkCycle.get(d) == null) walkCycle.put(d, 1);
     	
@@ -68,15 +65,23 @@ public abstract class Entity implements Image, Interactable {
     public abstract void interact();
     
     public Direction getCurrentDirection() {
-    	return current;
+    	return currentDirection;
     }
 
     public Point getLocation() {
-        return loc;
+        return currentLocation;
+    }
+    
+    public void setLocation(Point loc) {
+    	this.currentLocation = loc;
     }
 
-    public JLabel getLabel() {
-        return label;
+    public ImageIcon getCurrentImage() {
+    	return currentImage;
+    }
+    
+    public void setCurrentImage(Direction d, boolean moving) {
+    	this.currentImage = getImage(d, moving);
     }
     
 	public ImageIcon getImage() {

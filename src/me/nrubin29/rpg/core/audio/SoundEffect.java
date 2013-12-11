@@ -2,7 +2,7 @@ package me.nrubin29.rpg.core.audio;
 
 public enum SoundEffect implements Audio {
 
-	WALK("walk");
+	BUMP("bump");
 	
 	private String path;
 	
