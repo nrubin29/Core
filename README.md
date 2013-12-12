@@ -23,4 +23,3 @@ RPG-Core is an engine for creating visual games in Java. It is built upon Java's
 * Simple but Powerful Scripting Language
 * Multiplayer
 * Tilesheet Parsing
-* Launcher

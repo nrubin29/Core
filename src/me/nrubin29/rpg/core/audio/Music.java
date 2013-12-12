@@ -7,7 +7,7 @@ public enum Music implements Audio {
 	private String path;
 	
 	Music(String name) {
-		this.path = "res/audio/music/" + name + ".mp3";
+		this.path = "audio/music/" + name + ".mp3";
 	}
 	
 	public String getPath() {

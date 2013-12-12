@@ -9,7 +9,7 @@ import javax.swing.ImageIcon;
 import me.nrubin29.rpg.core.map.Direction;
 import me.nrubin29.rpg.core.misc.Image;
 import me.nrubin29.rpg.core.util.Constants;
-import me.nrubin29.rpg.core.util.ImageUtil;
+import me.nrubin29.rpg.core.util.ResourceUtil;
 
 public abstract class Entity implements Image, Interactable {
 
@@ -38,13 +38,13 @@ public abstract class Entity implements Image, Interactable {
     	for (Field f : getClass().getFields()) {
     		if (f.getType().equals(ImageIcon.class) && !f.getName().equals("face")) {
     			try {
-    				f.set(this, ImageUtil.getImage("sprites/" + name.toLowerCase() + "/" + f.getName(), Constants.TILE_DIM, Constants.TILE_DIM));
+    				f.set(this, ResourceUtil.getImage("sprites/" + name.toLowerCase() + "/" + f.getName(), Constants.TILE_DIM, Constants.TILE_DIM));
     			}
     			catch (Exception e) { e.printStackTrace(); }
     		}
     	}
     	
-    	face = ImageUtil.getImage("sprites/" + name.toLowerCase() + "/face");
+    	face = ResourceUtil.getImage("sprites/" + name.toLowerCase() + "/face");
 
     	this.currentImage = getImage(Direction.DOWN, false);
         this.currentLocation = spawn;
@@ -89,6 +89,6 @@ public abstract class Entity implements Image, Interactable {
 	}
 
 	public ImageIcon getImage(int width, int height) {
-		return ImageUtil.resizeImage(face, width, height);
+		return ResourceUtil.resizeImage(face, width, height);
 	}
 }

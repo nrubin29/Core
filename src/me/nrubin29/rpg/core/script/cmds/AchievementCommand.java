@@ -16,7 +16,7 @@ public class AchievementCommand extends ScriptCommand {
 		String name = args[1];
 		
 		if (args[0].equalsIgnoreCase("give")) {
-			((PlayerData) DataManager.getInstance().getConfigurationFile(PlayerData.class)).addAchievement(Achievement.valueOf(name.toUpperCase()));
+			DataManager.getInstance().<PlayerData>getConfigurationFile(PlayerData.class).addAchievement(Achievement.valueOf(name.toUpperCase()));
 		}
 	}
 }

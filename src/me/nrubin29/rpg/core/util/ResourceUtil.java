@@ -1,15 +1,31 @@
 package me.nrubin29.rpg.core.util;
 
-import me.nrubin29.rpg.core.Main;
+import java.awt.image.BufferedImage;
+import java.io.InputStream;
+import java.net.URL;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
+import javax.swing.ImageIcon;
 
-public class ImageUtil {
+import me.nrubin29.rpg.core.Main;
+
+public class ResourceUtil {
+	
+	public static URL getResource(String path) {
+		return Main.class.getResource("/res/" + path);
+	}
+	
+	public static InputStream getResourceAsStream(String path) {
+		return Main.class.getResourceAsStream("/res/" + path);
+	}
+	
+	public static BufferedImage getBufferedImage(String imagePath) {
+		try { return ImageIO.read(getResource(imagePath + ".png")); }
+        catch (Exception e) { return null; }
+	}
 
     public static ImageIcon getImage(String imagePath) {
-        try { return new ImageIcon(ImageIO.read(Main.class.getClassLoader().getResource("res/" + imagePath + ".png"))); }
-        catch (Exception e) { return null; }
+        return new ImageIcon(getBufferedImage(imagePath));
     }
     
     public static ImageIcon getImage(String imagePath, int width, int height) {

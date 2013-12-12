@@ -3,10 +3,11 @@ package me.nrubin29.rpg.core.tile;
 import java.awt.Point;
 
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 import me.nrubin29.rpg.core.entity.Interactable;
 import me.nrubin29.rpg.core.misc.Image;
-import me.nrubin29.rpg.core.util.ImageUtil;
+import me.nrubin29.rpg.core.util.ResourceUtil;
 
 public enum Tile implements Image, Interactable {
 
@@ -53,11 +54,12 @@ public enum Tile implements Image, Interactable {
 	}
 	
 	public ImageIcon getImage() {
+		if (this.id.equals("E")) JOptionPane.showMessageDialog(null, "Attempting to get image on empty tile!");
 		return image;
 	}
 	
 	public ImageIcon getImage(int width, int height) {
-		return ImageUtil.resizeImage(getImage(), width, height);
+		return ResourceUtil.resizeImage(getImage(), width, height);
 	}
 	
 	public boolean isSolid() {

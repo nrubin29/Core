@@ -1,7 +1,10 @@
 package me.nrubin29.rpg.core.tile;
 
-import java.io.File;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+
+import me.nrubin29.rpg.core.util.ResourceUtil;
 
 public class TilesheetManager {
 
@@ -17,9 +20,14 @@ public class TilesheetManager {
 	
 	public void setup() {
 		try {
-			for (String file : new File(getClass().getClassLoader().getResource("res/tilesheet/").toURI()).list()) {
+			BufferedReader reader = new BufferedReader(new InputStreamReader(ResourceUtil.getResourceAsStream("tilesheet/names.txt")));
+			
+			while (reader.ready()) {
+				String file = reader.readLine();
 				tilesheets.add(new Tilesheet(file));
 			}
+			
+			reader.close();
 		}
 		catch (Exception e) { e.printStackTrace(); }
 	}

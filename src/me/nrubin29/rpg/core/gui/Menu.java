@@ -25,9 +25,8 @@ import me.nrubin29.rpg.core.data.DataManager;
 import me.nrubin29.rpg.core.data.LocalizationManager;
 import me.nrubin29.rpg.core.data.files.Keys;
 import me.nrubin29.rpg.core.map.MapManager;
-import me.nrubin29.rpg.core.server.ServerConnector;
 import me.nrubin29.rpg.core.util.Constants;
-import me.nrubin29.rpg.core.util.ImageUtil;
+import me.nrubin29.rpg.core.util.ResourceUtil;
 import me.nrubin29.rpg.core.util.ThreadUtil;
 
 public class Menu extends JFrame {
@@ -37,9 +36,18 @@ public class Menu extends JFrame {
 	public Menu() {
 		super(Constants.NAME);
 		
-		final JTextField ip = new JTextField(14), secret = new JTextField(10);
+		final JTextField ip = new JTextField("Multiplayer Disabled", 14), secret = new JTextField("Multiplayer Disabled", 12);
         final JButton connect = new JButton("Connect"), local = new JButton("Play Local"), mapMaker = new JButton("Map Maker"), bindKeys = new JButton("Bind Keys");
 
+        /*
+         * Only for beta!
+         */
+        ip.setEditable(false);
+        secret.setEditable(false);
+        /* 
+         * Only for beta!
+         */
+        
         local.setAlignmentX(Component.CENTER_ALIGNMENT);
         local.addActionListener(new ActionListener() {
             @Override
@@ -52,9 +60,16 @@ public class Menu extends JFrame {
             		if (f.getName().endsWith(".map")) listModel.addElement(f.getName().substring(0, f.getName().indexOf(".")));
             	}
             	
+            	if (listModel.isEmpty()) {
+            		JOptionPane.showMessageDialog(Menu.this, "You don't have any maps. Make one in the Map Maker.");
+            		return;
+            	}
+            	
             	listPanel.add(list);
             	
             	JOptionPane.showMessageDialog(Menu.this, listPanel);
+            	
+            	if (list.getSelectedValue() == null) return;
             	
             	String file = list.getSelectedValue().toString();
             	
@@ -72,30 +87,32 @@ public class Menu extends JFrame {
         connect.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                String ipString = ip.getText(), secretString = secret.getText();
-
-                if (ipString.equals("")) {
-                    JOptionPane.showMessageDialog(Menu.this, "You didn't enter an IP address.");
-                    return;
-                }
-
-                if (secretString.equals("")) {
-                    JOptionPane.showMessageDialog(Menu.this, "You didn't enter a secret number.");
-                    return;
-                }
-
-                int secretInt;
-
-                try {
-                    secretInt = Integer.parseInt(secretString);
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(Menu.this, "Invalid secret number.");
-                    return;
-                }
-
-                if (!ServerConnector.getInstance().initConnection(ipString, secretInt)) return;
-
-                setupGame();
+            	JOptionPane.showMessageDialog(Menu.this, "Multiplayer Disabled.");
+            	
+//                String ipString = ip.getText(), secretString = secret.getText();
+//
+//                if (ipString.equals("")) {
+//                    JOptionPane.showMessageDialog(Menu.this, "You didn't enter an IP address.");
+//                    return;
+//                }
+//
+//                if (secretString.equals("")) {
+//                    JOptionPane.showMessageDialog(Menu.this, "You didn't enter a secret number.");
+//                    return;
+//                }
+//
+//                int secretInt;
+//
+//                try {
+//                    secretInt = Integer.parseInt(secretString);
+//                } catch (Exception e) {
+//                    JOptionPane.showMessageDialog(Menu.this, "Invalid secret number.");
+//                    return;
+//                }
+//
+//                if (!ServerConnector.getInstance().initConnection(ipString, secretInt)) return;
+//
+//                setupGame();
             }
         });
         
@@ -139,13 +156,14 @@ public class Menu extends JFrame {
         });
         
         JPanel logoPanel = new JPanel();
-        logoPanel.add(new JLabel(ImageUtil.getImage("logo")));
+        logoPanel.add(new JLabel(ResourceUtil.getImage("logo")));
 
         JPanel panel = new JPanel();
         panel.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setMaximumSize(new Dimension(400, 400));
         panel.add(logoPanel);
+        JLabel info = new JLabel(Constants.NAME + " v" + Constants.VERSION + " by " + Constants.AUTHOR); info.setAlignmentX(Component.CENTER_ALIGNMENT); panel.add(info);
         panel.add(createTitledPanel(LocalizationManager.getInstance().getString("server"), ip));
         panel.add(createTitledPanel(LocalizationManager.getInstance().getString("secret"), secret));
         panel.add(createTitledPanel(null, connect));

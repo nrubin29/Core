@@ -7,7 +7,7 @@ public enum SoundEffect implements Audio {
 	private String path;
 	
 	SoundEffect(String name) {
-		this.path = "res/audio/sfx/" + name + ".mp3";
+		this.path = "audio/sfx/" + name + ".mp3";
 	}
 	
 	public String getPath() {

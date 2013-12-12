@@ -1,7 +1,7 @@
 package me.nrubin29.rpg.core.audio;
 
 import javazoom.jl.player.Player;
-import me.nrubin29.rpg.core.Main;
+import me.nrubin29.rpg.core.util.ResourceUtil;
 import me.nrubin29.rpg.core.util.ThreadUtil;
 
 public class AudioPlayer {
@@ -47,7 +47,7 @@ public class AudioPlayer {
 	}
 	
 	public Player createPlayer(Audio audio) {
-		try { return new Player(Main.class.getClassLoader().getResource(audio.getPath()).openStream()); }
+		try { return new Player(ResourceUtil.getResource(audio.getPath()).openStream()); }
 		catch (Exception e) { return null; }
 	}
 }

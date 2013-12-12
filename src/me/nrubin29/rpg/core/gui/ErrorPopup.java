@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import me.nrubin29.rpg.core.util.Constants;
-import me.nrubin29.rpg.core.util.ImageUtil;
+import me.nrubin29.rpg.core.util.ResourceUtil;
 
 public class ErrorPopup extends JFrame {
 
@@ -24,22 +24,17 @@ public class ErrorPopup extends JFrame {
 	public ErrorPopup(final Throwable e) {
 		super("Error");
 		
-		JLabel player = new JLabel(ImageUtil.getImage("sprites/player/downStatic", 25, 25));
+		JLabel player = new JLabel(ResourceUtil.getImage("sprites/player/downStatic", 25, 25));
 		
 		JPanel playerPanel = new JPanel();
 		playerPanel.add(player);
 		
 		JTextArea notice = new JTextArea(
-				"Congratulations, beta tester, you have discovered a bug! Please follow the steps below to correctly fill out a bug report:\n\n" +
+				"Congratulations, beta tester, you have discovered a bug! Please follow the steps below to correctly submit a bug report:\n\n" +
 				"1. Click Submit Bug Report.\n" +
-				"2. Pick a nice title for the bug report.\n" +
-				"3. Click Copy Information to copy the information to your clipboard. Paste the info into the bug report.\n" +
+				"2. Click Copy Information to copy the information to your clipboard. Paste the info into the email.\n" +
+				"3. In the report, explain exactly what you did to produce the problem.\n" +
 				"4. Hit Submit. That's it! Thanks!"
-//				"An error has occurred and " + Data.NAME + " needs to stop. " +
-//				"The error is detailed below. " +
-//				"If you are a Java programmer, feel free to scoff at my childish mistake. " +
-//				"If you know me (the developer), feel free to send me an email with this error. " +
-//				"Otherwise, just restart the game and you should be good.\n"
 				);
 		notice.setEditable(false);
 		notice.setFocusable(false);
@@ -52,7 +47,7 @@ public class ErrorPopup extends JFrame {
 		newReport.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		newReport.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				try { Desktop.getDesktop().browse(new URI("https://github.com/nrubin29/RPG-Core/issues/new"));}
+				try { Desktop.getDesktop().mail(new URI("mailto:nrubin29@gmail.com")); }
 				catch (Exception ex) { }
 			}
 		});
@@ -63,10 +58,14 @@ public class ErrorPopup extends JFrame {
 			public void mousePressed(MouseEvent ev) {
 				StringBuffer infoBuffer = new StringBuffer();
 				
-				infoBuffer.append("Error Type: " + e.getClass().getSimpleName() + "\n");
 				infoBuffer.append("OS: " + System.getProperty("os.name") + "\n");
 				infoBuffer.append("Java Version: " + System.getProperty("java.version") + "\n\n");
+				
+				infoBuffer.append("Error Type: " + e.getClass().getSimpleName() + "\n");
+				infoBuffer.append("Error Details: " + e.getMessage() + "\n\n");
 				for (StackTraceElement ste : e.getStackTrace()) infoBuffer.append(ste + "\n");
+				
+				infoBuffer.append("\nSteps I took to produce this problem:\n");
 				
 				Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(infoBuffer.toString()), null);
 			}

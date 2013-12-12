@@ -4,13 +4,11 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
-import me.nrubin29.rpg.core.Main;
 import me.nrubin29.rpg.core.misc.Image;
 import me.nrubin29.rpg.core.util.Constants;
-import me.nrubin29.rpg.core.util.ImageUtil;
+import me.nrubin29.rpg.core.util.ResourceUtil;
 
 public class Tilesheet implements Image {
 
@@ -23,7 +21,7 @@ public class Tilesheet implements Image {
 		this.name = name.substring(0, name.lastIndexOf("."));
 		
 		try {
-			image = ImageIO.read(Main.class.getClassLoader().getResource("res/tilesheet/" + name.toLowerCase())); // I don't use ImageUtil because I need a BufferedImage.
+			image = ResourceUtil.getBufferedImage("tilesheet/" + this.name.toLowerCase());
 			
 			int xTiles = image.getWidth() / Constants.TILE_DIM;
 			int yTiles = image.getHeight() / Constants.TILE_DIM;
@@ -57,6 +55,6 @@ public class Tilesheet implements Image {
 	}
 	
 	public ImageIcon getImage(int width, int height) {
-		return ImageUtil.resizeImage(getImage(), width, height);
+		return ResourceUtil.resizeImage(getImage(), width, height);
 	}
 }

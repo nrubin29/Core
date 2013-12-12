@@ -1,5 +1,7 @@
 package me.nrubin29.rpg.core.gui;
 
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,6 +34,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import me.nrubin29.rpg.core.audio.Music;
 import me.nrubin29.rpg.core.data.DataManager;
+import me.nrubin29.rpg.core.laf.BlockBorder;
 import me.nrubin29.rpg.core.map.MapType;
 import me.nrubin29.rpg.core.tile.Tile;
 import me.nrubin29.rpg.core.util.Constants;
@@ -65,16 +68,25 @@ public class MapMaker extends JFrame {
 		JPanel rightPanel = new JPanel();
 		rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
 		
-		JPanel tilesheet = new JPanel(new GridLayout(8, 5));
+		final JPanel tilesheet = new JPanel(new GridLayout(8, 5));
 		tilesheet.setBorder(BorderFactory.createTitledBorder("Tilesheet"));
 		
 		for (final Tile t : Tile.values()) {
 			if (t == Tile.EMPTY) continue;
-			JButton tileButton = new JButton(t.getImage());
+			final JButton tileButton = new JButton(t.getImage());
 			tileButton.setBorderPainted(false);
 			tileButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					selection = t;
+					
+					for (Component c : tilesheet.getComponents()) {
+						if (c instanceof JButton) {
+							JButton b = (JButton) c;
+							b.setBorder(new BlockBorder(Color.GRAY, 8));
+						}
+					}
+					
+					tileButton.setBorder(new BlockBorder(Color.GREEN, 8));
 				}
 			});
 			tilesheet.add(tileButton);

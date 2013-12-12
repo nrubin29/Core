@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-import me.nrubin29.rpg.core.Main;
+import me.nrubin29.rpg.core.util.ResourceUtil;
 
 public class DataFile {
 
@@ -28,9 +28,9 @@ public class DataFile {
             File file = DataManager.getInstance().getFile(folderName, fileName + ".config", false);
 			
 			if (!file.exists()) {
-                file.createNewFile();
+				file.createNewFile();
 				
-				File template = new File(Main.class.getClassLoader().getResource("res/files/" + (!folderName.equals("") ? folderName + "/" : "") + fileName + ".config").toURI());
+				File template = new File(ResourceUtil.getResource("files/" + (!folderName.equals("") ? folderName + "/" : "") + fileName + ".config").toURI());
 
 				ArrayList<String> lines = new ArrayList<String>();
 				

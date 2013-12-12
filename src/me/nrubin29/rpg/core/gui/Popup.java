@@ -23,7 +23,7 @@ import javax.swing.text.StyledDocument;
 import me.nrubin29.rpg.core.keycommand.KeyCommandManager;
 import me.nrubin29.rpg.core.util.Constants;
 import me.nrubin29.rpg.core.util.FontUtil;
-import me.nrubin29.rpg.core.util.ImageUtil;
+import me.nrubin29.rpg.core.util.ResourceUtil;
 
 public class Popup extends JPanel {
 
@@ -85,7 +85,7 @@ public class Popup extends JPanel {
 	
 	private Popup(ImageIcon image, JComponent comp, final Runnable whenDone) {
 		if (image != null) {
-			JLabel img = new JLabel(ImageUtil.resizeImage(image, 75, 60));
+			JLabel img = new JLabel(ResourceUtil.resizeImage(image, 75, 60));
 			img.setBorder(BorderFactory.createLineBorder(Color.BLUE));
 			img.setAlignmentX(Component.CENTER_ALIGNMENT);
 			img.setFocusable(false);
