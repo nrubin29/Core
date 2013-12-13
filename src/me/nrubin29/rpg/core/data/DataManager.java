@@ -7,6 +7,7 @@ import javax.swing.filechooser.FileSystemView;
 
 import me.nrubin29.rpg.core.data.files.Keys;
 import me.nrubin29.rpg.core.data.files.PlayerData;
+import me.nrubin29.rpg.core.data.files.Version;
 import me.nrubin29.rpg.core.util.Constants;
 
 public final class DataManager {
@@ -24,6 +25,7 @@ public final class DataManager {
 	public void setup() {
 		files.add(new Keys());
 		files.add(new PlayerData());
+		files.add(new Version());
 	}
 	
 	@SuppressWarnings("unchecked")

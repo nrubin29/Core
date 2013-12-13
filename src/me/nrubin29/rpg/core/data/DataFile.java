@@ -31,6 +31,8 @@ public class DataFile {
 				file.createNewFile();
 				
 				File template = new File(ResourceUtil.getResource("files/" + (!folderName.equals("") ? folderName + "/" : "") + fileName + ".config").toURI());
+				
+				if (!template.exists()) return;
 
 				ArrayList<String> lines = new ArrayList<String>();
 				

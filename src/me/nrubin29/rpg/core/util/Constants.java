@@ -31,6 +31,6 @@ public class Constants {
     
     public static final String
     		NAME = "RPG-Core",
-    		VERSION = "0.9.1",
+    		VERSION = "0.9.2",
     		AUTHOR = "Noah Rubin";
 }
